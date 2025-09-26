@@ -1,10 +1,15 @@
 package ie.setu.mobileappdevassignment.models
 
-public class LegoCollection {
-    var name : String = ""
-    var description : String = ""
-    var creationDate : String = ""
-    var sets = arrayOf<LegoSet>()
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class LegoCollection(
+    var name : String = "",
+    var description : String = "",
+    var creationDate : String = "",
+    var sets: List<LegoSet> = emptyList()
+) {
+
 
     fun numberOfSets() : Int {
         val numberOfSets : Int = sets.size
@@ -12,7 +17,7 @@ public class LegoCollection {
     }
 
     fun minimumAge() : Int{
-        var minAge : Int = 0;
+        var minAge : Int = 0
         for (set in sets){
             if (set.ageRange > minAge) {
                 minAge = set.ageRange

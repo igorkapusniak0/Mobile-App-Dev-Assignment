@@ -1,25 +1,19 @@
 package ie.setu.mobileappdevassignment.models
 
-class User {
-    var name : String = ""
-    var password : String = ""
-    var collections = arrayOf<LegoCollection>()
-    var sets = arrayOf<LegoSet>()
+import kotlinx.serialization.Serializable
 
-    fun numberOfSets() : Int {
-        val numberOfSets : Int = sets.size
-        return numberOfSets
-    }
+@Serializable
+data class User(
+    var name: String = "",
+    var password: String = "",
+    var collections: List<LegoCollection> = emptyList(),
+    var sets: List<LegoSet> = emptyList()
+) {
+    fun numberOfSets(): Int = sets.size
 
-    fun numberOfCollections() : Int {
-        val numberOfCollections : Int = collections.size
-        return numberOfCollections
-    }
+    fun numberOfCollections(): Int = collections.size
 
     override fun toString(): String {
-        return "Name: " + name +
-                "Password: " + password +
-                "Collections: " + collections +
-                "Sets: " + sets
+        return "Name: $name, Password: $password, Collections: $collections, Sets: $sets"
     }
 }
