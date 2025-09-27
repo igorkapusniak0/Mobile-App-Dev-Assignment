@@ -5,4 +5,5 @@
     <color name="primaryColor">#1976D2</color>
     <color name="buttonColourLightMode">#2196F3</color>
     <color name="buttonTextColourLightMode">#FFFFFF</color>
+    <color name="nav_item_color">#000000</color>
 </resources>

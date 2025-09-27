@@ -32,7 +32,7 @@ class LoginScreenController {
 
     fun loginUser(username: String, password: String){
         for (user in globalData.usersData){
-            if (username.lowercase() == user.name.lowercase()){
+            if ((username.lowercase() == user.name.lowercase()) && (password == user.password)){
                 Log.d("Login", "successful")
                 break
             }
@@ -49,6 +49,18 @@ class LoginScreenController {
         Log.d("savedata",file.readText())
         Log.d("SaveFile", "Saved JSON to ${file.absolutePath}")
     }
+
+    private fun userExists(username: String) : Boolean{
+        var userExists = false
+        for (user in globalData.usersData){
+            if (username.lowercase() == user.name.lowercase()){
+                userExists = true
+                break
+            }
+
+        }
+        return userExists
+    }
     fun registerUser(context: Context, username : String, password: String){
         val file = File(context.filesDir,saveFileName)
         if (!file.exists()) {
@@ -57,11 +69,15 @@ class LoginScreenController {
             Log.d("SaveFile", "File created at ${file.absolutePath}")
         }
 
-        user = User()
-        user.name = username
-        user.password = password
+        if (!userExists(username)){
+            user = User()
+            user.name = username
+            user.password = password
 
-        globalData.usersData.add(user)
-        saveUsersToFile(context)
+            globalData.usersData.add(user)
+            saveUsersToFile(context)
+
+        }
+
     }
 }
