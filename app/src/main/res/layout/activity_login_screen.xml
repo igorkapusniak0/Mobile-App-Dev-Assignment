@@ -8,7 +8,7 @@
     android:outlineAmbientShadowColor="#FFFFFF"
     android:outlineSpotShadowColor="#DECBCB"
     android:background="#FFFFFF"
-    tools:context=".LoginScreenActivity">
+    tools:context=".activities.LoginScreenActivity">
 
 
     <Button

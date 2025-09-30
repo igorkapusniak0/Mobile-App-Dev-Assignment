@@ -6,6 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 object GlobalData {
     val usersData = mutableListOf<User>()
+    var loggedUserData = User()
 
     override fun toString(): String {
         var users: String = ""

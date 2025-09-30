@@ -6,8 +6,8 @@ import kotlinx.serialization.Serializable
 data class User(
     var name: String = "",
     var password: String = "",
-    var collections: List<LegoCollection> = emptyList(),
-    var sets: List<LegoSet> = emptyList()
+    var collections: MutableList<LegoCollection> = mutableListOf(),
+    var sets: MutableList<LegoSet> = mutableListOf()
 ) {
     fun numberOfSets(): Int = sets.size
 

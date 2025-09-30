@@ -1,10 +1,11 @@
-package ie.setu.mobileappdevassignment
+package ie.setu.mobileappdevassignment.activities
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import ie.setu.mobileappdevassignment.databinding.ActivityLoginScreenBinding
-import ie.setu.mobileappdevassignment.controllers.LoginScreenController
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import ie.setu.mobileappdevassignment.controllers.LoginScreenController
+import ie.setu.mobileappdevassignment.databinding.ActivityLoginScreenBinding
 
 class LoginScreenActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginScreenBinding
@@ -24,7 +25,10 @@ class LoginScreenActivity : AppCompatActivity() {
         binding.loginButton.setOnClickListener {
             val username = binding.usernameField.text.toString()
             val password = binding.passwordField.text.toString()
-            controller.loginUser(username, password)
+            if (controller.loginUser(username, password)){
+                val intent = Intent(this@LoginScreenActivity, CollectionsActivity::class.java)
+                startActivity(intent)
+            }
             Log.d("Username" ,username)
             Log.d("Password" ,password)
         }
@@ -32,7 +36,11 @@ class LoginScreenActivity : AppCompatActivity() {
         binding.registerButton.setOnClickListener {
             val username = binding.usernameField.text.toString()
             val password = binding.passwordField.text.toString()
-            controller.registerUser(this, username, password)
+            if (controller.registerUser(this, username, password)){
+                val intent = Intent(this@LoginScreenActivity, CollectionsActivity::class.java)
+                startActivity(intent)
+            }
+
             Log.d("Username" ,username)
             Log.d("Password" ,password)
         }

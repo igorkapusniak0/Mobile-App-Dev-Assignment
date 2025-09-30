@@ -7,7 +7,7 @@ data class LegoCollection(
     var name : String = "",
     var description : String = "",
     var creationDate : String = "",
-    var sets: List<LegoSet> = emptyList()
+    var sets: MutableList<LegoSet> = mutableListOf()
 ) {
 
 

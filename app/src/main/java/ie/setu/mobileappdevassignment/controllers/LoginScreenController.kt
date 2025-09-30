@@ -30,16 +30,20 @@ class LoginScreenController {
 
     }
 
-    fun loginUser(username: String, password: String){
+    fun loginUser(username: String, password: String): Boolean{
+        var loginSuccessful: Boolean = false
         for (user in globalData.usersData){
             if ((username.lowercase() == user.name.lowercase()) && (password == user.password)){
                 Log.d("Login", "successful")
+                loginSuccessful = true
+                globalData.loggedUserData = user
                 break
             }
             else{
                 Log.d("Login", "Failed")
             }
         }
+        return loginSuccessful
     }
 
     fun saveUsersToFile(context: Context) {
@@ -61,7 +65,8 @@ class LoginScreenController {
         }
         return userExists
     }
-    fun registerUser(context: Context, username : String, password: String){
+    fun registerUser(context: Context, username : String, password: String): Boolean{
+        var registerSuccessful: Boolean = false
         val file = File(context.filesDir,saveFileName)
         if (!file.exists()) {
             file.createNewFile()
@@ -74,10 +79,12 @@ class LoginScreenController {
             user.name = username
             user.password = password
 
+            registerSuccessful = true
             globalData.usersData.add(user)
+            globalData.loggedUserData = user
             saveUsersToFile(context)
 
         }
-
+        return registerSuccessful
     }
 }
