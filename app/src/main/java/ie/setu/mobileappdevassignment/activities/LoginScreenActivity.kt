@@ -5,18 +5,18 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import ie.setu.mobileappdevassignment.R
-import ie.setu.mobileappdevassignment.controllers.LoginScreenController
+import ie.setu.mobileappdevassignment.controllers.LoginController
 import ie.setu.mobileappdevassignment.databinding.ActivityLoginScreenBinding
 import ie.setu.mobileappdevassignment.utilities.Utils
 
 class LoginScreenActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginScreenBinding
-    private lateinit var controller: LoginScreenController
+    private lateinit var controller: LoginController
     private lateinit var utils: Utils
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        controller = LoginScreenController()
+        controller = LoginController()
         utils = Utils()
 
         utils.loadSaveFileToList(this, controller.saveFileName)

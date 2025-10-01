@@ -1,5 +1,6 @@
 package ie.setu.mobileappdevassignment.models
 
+import android.media.Image
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -7,7 +8,9 @@ data class LegoCollection(
     var name : String = "",
     var description : String = "",
     var creationDate : String = "",
-    var sets: MutableList<LegoSet> = mutableListOf()
+    var imagePath: String = "",
+    var sets: MutableList<LegoSet> = mutableListOf(),
+    var isPublic: Boolean = false
 ) {
 
 

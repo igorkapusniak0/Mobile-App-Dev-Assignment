@@ -9,7 +9,7 @@ import ie.setu.mobileappdevassignment.utilities.Utils
 
 
 
-class LoginScreenController {
+class LoginController {
     val saveFileName = "saveFile.JSON"
     private var globalData = GlobalData
     private lateinit var user: User

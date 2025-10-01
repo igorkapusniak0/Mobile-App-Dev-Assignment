@@ -6,6 +6,9 @@ import ie.setu.mobileappdevassignment.models.User
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.io.File
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class Utils {
 
@@ -31,5 +34,11 @@ class Utils {
             }
         }
 
+    }
+
+    fun getDate(): String{
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+        val current = LocalDateTime.now().format(formatter)
+        return current
     }
 }
