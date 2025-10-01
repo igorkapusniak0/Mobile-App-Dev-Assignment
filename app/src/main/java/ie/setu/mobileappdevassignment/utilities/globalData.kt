@@ -1,4 +1,4 @@
-package ie.setu.mobileappdevassignment.globalData
+package ie.setu.mobileappdevassignment.utilities
 
 import ie.setu.mobileappdevassignment.models.User
 import kotlinx.serialization.Serializable
@@ -9,7 +9,7 @@ object GlobalData {
     var loggedUserData = User()
 
     override fun toString(): String {
-        var users: String = ""
+        var users = ""
         for (user in usersData){
             users += (user.name + ", ")
         }

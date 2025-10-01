@@ -8,7 +8,7 @@ import ie.setu.mobileappdevassignment.R
 import ie.setu.mobileappdevassignment.controllers.CollectionsController
 import ie.setu.mobileappdevassignment.databinding.ActivityCollectionsBinding
 
-class CollectionsActivity : AppCompatActivity() {
+class CollectionsActivity : NavActivity() {
     private lateinit var binding: ActivityCollectionsBinding
     private lateinit var controller: CollectionsController
     private lateinit var rootContainer: LinearLayout

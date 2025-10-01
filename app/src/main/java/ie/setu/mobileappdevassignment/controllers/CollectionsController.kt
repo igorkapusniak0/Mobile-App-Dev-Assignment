@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.TextView
 import ie.setu.mobileappdevassignment.R
-import ie.setu.mobileappdevassignment.globalData.GlobalData
+import ie.setu.mobileappdevassignment.utilities.GlobalData
 import ie.setu.mobileappdevassignment.models.LegoCollection
 
 
@@ -17,7 +17,7 @@ class CollectionsController {
         var userCollections = mutableListOf<LegoCollection>()
         for (user in globalData.usersData){
             if (globalData.loggedUserData.name == user.name){
-                userCollections = user.collections;
+                userCollections = user.collections
             }
         }
         if (userCollections.isEmpty()){
