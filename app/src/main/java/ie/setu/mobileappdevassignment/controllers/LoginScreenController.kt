@@ -30,17 +30,19 @@ class LoginScreenController {
 
     }
 
-    fun loginUser(username: String, password: String): Boolean{
-        var loginSuccessful: Boolean = false
+    fun loginUser(username: String, password: String): Int{
+        var loginSuccessful = 0
         for (user in globalData.usersData){
-            if ((username.lowercase() == user.name.lowercase()) && (password == user.password)){
-                Log.d("Login", "successful")
-                loginSuccessful = true
-                globalData.loggedUserData = user
-                break
-            }
-            else{
-                Log.d("Login", "Failed")
+            if (userExists(username)){
+                if (password == user.password){
+                    Log.d("Login", "successful")
+                    loginSuccessful = 1
+                    globalData.loggedUserData = user
+                    break
+                }
+                else{
+                    loginSuccessful = 2
+                }
             }
         }
         return loginSuccessful
@@ -50,7 +52,7 @@ class LoginScreenController {
         val jsonString = Json.encodeToString(GlobalData.usersData)
         val file = File(context.filesDir, saveFileName)
         file.writeText(jsonString)
-        Log.d("savedata",file.readText())
+        Log.d("Save Data",file.readText())
         Log.d("SaveFile", "Saved JSON to ${file.absolutePath}")
     }
 
@@ -66,7 +68,7 @@ class LoginScreenController {
         return userExists
     }
     fun registerUser(context: Context, username : String, password: String): Boolean{
-        var registerSuccessful: Boolean = false
+        var registerSuccessful = false
         val file = File(context.filesDir,saveFileName)
         if (!file.exists()) {
             file.createNewFile()
@@ -83,7 +85,6 @@ class LoginScreenController {
             globalData.usersData.add(user)
             globalData.loggedUserData = user
             saveUsersToFile(context)
-
         }
         return registerSuccessful
     }

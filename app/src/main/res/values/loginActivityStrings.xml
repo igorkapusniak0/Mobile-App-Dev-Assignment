@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MobileAppDevAssignment</string>
+    <string name="login_button">Login</string>
+    <string name="register_button">Register</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="user_not_exist">User Does Not Exist</string>
+    <string name="incorrect_password">Password is Incorrect</string>
+    <string name="user_exist">User Already Exists</string>
+    <string name="lego">LEGO</string>
+</resources>

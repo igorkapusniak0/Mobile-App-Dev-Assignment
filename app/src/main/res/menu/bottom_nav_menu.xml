@@ -12,6 +12,11 @@
         android:title="Sets" />
 
     <item
+        android:id="@+id/nav_Add"
+        android:icon="@drawable/add"
+        android:title="Add" />
+
+    <item
         android:id="@+id/nav_map"
         android:icon="@drawable/map"
         android:title="Map" />
