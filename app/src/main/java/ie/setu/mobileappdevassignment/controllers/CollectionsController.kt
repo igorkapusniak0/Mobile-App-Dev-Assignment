@@ -8,10 +8,12 @@ import android.widget.TextView
 import ie.setu.mobileappdevassignment.R
 import ie.setu.mobileappdevassignment.utilities.GlobalData
 import ie.setu.mobileappdevassignment.models.LegoCollection
+import ie.setu.mobileappdevassignment.utilities.Utils
 
 
-class CollectionsController {
+class CollectionsController(context: Context) {
     private var globalData = GlobalData
+    private val utils = Utils(context)
 
     fun getUserCollections(): MutableList<LegoCollection>{
         var userCollections = mutableListOf<LegoCollection>()

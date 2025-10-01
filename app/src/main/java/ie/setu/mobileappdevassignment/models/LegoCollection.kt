@@ -1,6 +1,5 @@
 package ie.setu.mobileappdevassignment.models
 
-import android.media.Image
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -20,7 +19,7 @@ data class LegoCollection(
     }
 
     fun minimumAge() : Int{
-        var minAge : Int = 0
+        var minAge = 0
         for (set in sets){
             if (set.ageRange > minAge) {
                 minAge = set.ageRange

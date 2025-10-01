@@ -9,11 +9,10 @@ import ie.setu.mobileappdevassignment.utilities.Utils
 
 
 
-class LoginController {
-    val saveFileName = "saveFile.JSON"
+class LoginController(context: Context) {
     private var globalData = GlobalData
     private lateinit var user: User
-    private lateinit var utils: Utils
+    private val utils = Utils(context)
 
     fun loginUser(username: String, password: String): Int{
         var loginSuccessful = 0
@@ -48,7 +47,7 @@ class LoginController {
     }
     fun registerUser(context: Context, username : String, password: String): Boolean{
         var registerSuccessful = false
-        val file = File(context.filesDir,saveFileName)
+        val file = File(context.filesDir,utils.saveFileName)
         if (!file.exists()) {
             file.createNewFile()
             file.writeText("") // optional
@@ -63,7 +62,7 @@ class LoginController {
             registerSuccessful = true
             globalData.usersData.add(user)
             globalData.loggedUserData = user
-            utils.saveUsersToFile(context, saveFileName)
+            utils.saveUsersToFile()
         }
         return registerSuccessful
     }

@@ -22,8 +22,8 @@ class AddSetFragment: Fragment(R.layout.fragment_add_set) {
 
     override fun onCreate(savedInstance: Bundle?){
         super.onCreate(savedInstance)
-        utils = Utils()
-        controller = AddController()
+        utils = Utils(requireContext())
+        controller = AddController(requireContext())
     }
 
     override fun onCreateView(

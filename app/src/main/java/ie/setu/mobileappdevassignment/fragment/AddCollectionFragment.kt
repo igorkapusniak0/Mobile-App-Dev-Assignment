@@ -20,8 +20,8 @@ class AddCollectionFragment : Fragment(R.layout.fragment_add_collection) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        utils = Utils()
-        controller = AddController()
+        utils = Utils(requireContext())
+        controller = AddController(requireContext())
     }
 
     override fun onCreateView(

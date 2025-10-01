@@ -16,10 +16,10 @@ class LoginScreenActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        controller = LoginController()
-        utils = Utils()
+        controller = LoginController(this)
+        utils = Utils(this)
 
-        utils.loadSaveFileToList(this, controller.saveFileName)
+        utils.loadSaveFileToList()
 
         binding = ActivityLoginScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)

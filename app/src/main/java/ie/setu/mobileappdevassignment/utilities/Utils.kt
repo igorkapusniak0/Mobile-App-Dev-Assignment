@@ -6,13 +6,13 @@ import ie.setu.mobileappdevassignment.models.User
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.io.File
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class Utils {
+class Utils(private val context: Context) {
+    val saveFileName = "saveFile.JSON"
 
-    fun saveUsersToFile(context: Context, saveFileName: String) {
+    fun saveUsersToFile() {
         val jsonString = Json.encodeToString(GlobalData.usersData)
         val file = File(context.filesDir, saveFileName)
         file.writeText(jsonString)
@@ -20,7 +20,7 @@ class Utils {
         Log.d("SaveFile", "Saved JSON to ${file.absolutePath}")
     }
 
-    fun loadSaveFileToList(context: Context, saveFileName: String){
+    fun loadSaveFileToList(){
         val file = File(context.filesDir, saveFileName)
         Log.d("file", "file")
         if (file.exists()){
