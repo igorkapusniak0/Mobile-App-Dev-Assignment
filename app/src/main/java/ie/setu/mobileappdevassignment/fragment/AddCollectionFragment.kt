@@ -12,7 +12,6 @@ import ie.setu.mobileappdevassignment.databinding.FragmentAddCollectionBinding
 import ie.setu.mobileappdevassignment.models.LegoCollection
 import ie.setu.mobileappdevassignment.utilities.Utils
 class AddCollectionFragment : Fragment(R.layout.fragment_add_collection) {
-
     private var _binding: FragmentAddCollectionBinding? = null
     private val binding get() = _binding!!
 
@@ -47,12 +46,9 @@ class AddCollectionFragment : Fragment(R.layout.fragment_add_collection) {
             )
 
             controller.addCollection(collection)
-            val responseText = getString(R.string.added_collection)
+            collectionAdded()
 
-            Toast.makeText(requireContext(), responseText, Toast.LENGTH_LONG).show()
-            binding.nameField.setText("")
-            binding.descriptionField.setText("")
-            binding.isPublicSwitch.isChecked = false
+
         }
 
         return binding.root
@@ -61,5 +57,13 @@ class AddCollectionFragment : Fragment(R.layout.fragment_add_collection) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun collectionAdded(){
+        val responseText = getString(R.string.added_collection)
+        Toast.makeText(requireContext(), responseText, Toast.LENGTH_LONG).show()
+        binding.nameField.setText("")
+        binding.descriptionField.setText("")
+        binding.isPublicSwitch.isChecked = false
     }
 }

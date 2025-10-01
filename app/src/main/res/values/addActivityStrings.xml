@@ -9,4 +9,9 @@
     <string name="set_description_hint">Set Description</string>
     <string name="is_public">Discoverable</string>
     <string name="added_collection">Collection has been added</string>
+    <string name="added_set">Set has been added</string>
+    <string name="set_number_hint">Set Number</string>
+    <string name="set_piece_count">Set Piece Number</string>
+    <string name="set_age_range">Set Age</string>
+    <string name="set_price">Set Price</string>
 </resources>
