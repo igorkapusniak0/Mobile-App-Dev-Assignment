@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_collections"
+        android:icon="@drawable/collection"
+        android:title="@string/collections"/>
+
+    <item
+        android:id="@+id/nav_Sets"
+        android:icon="@drawable/set"
+        android:title="@string/sets" />
+
+    <item
+        android:id="@+id/nav_map"
+        android:icon="@drawable/map"
+        android:title="@string/map" />
+
+    <item
+        android:id="@+id/nav_discover"
+        android:icon="@drawable/discover"
+        android:title="@string/discover" />
+
+</menu>
