@@ -8,8 +8,6 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
-import ie.setu.madassignemtv2.activities.CollectionsListActivity
-import ie.setu.madassignemtv2.activities.SetsListActivity
 import ie.setu.madassignemtv2.controllers.CollectionsController
 import ie.setu.madassignemtv2.databinding.CardCollectionBinding
 import ie.setu.madassignemtv2.models.LegoCollection
@@ -43,6 +41,7 @@ class CollectionsAdapter(private var collections: MutableList<LegoCollection>, p
             binding.root.setOnClickListener {
                 onClick(collection)
             }
+
             binding.imageButton.setOnClickListener {
                 collectionsController.showBottomSheet(binding.root.context, collection, recyclerView)
             }

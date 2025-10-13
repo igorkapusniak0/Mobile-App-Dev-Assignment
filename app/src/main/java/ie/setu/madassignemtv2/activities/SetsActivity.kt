@@ -6,7 +6,6 @@ import android.view.Menu;
 import android.view.MenuItem
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.google.android.material.snackbar.Snackbar
 import ie.setu.madassignemtv2.R
 import ie.setu.madassignemtv2.controllers.SetsController;

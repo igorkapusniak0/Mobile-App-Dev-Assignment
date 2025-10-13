@@ -1,6 +1,7 @@
 package ie.setu.madassignemtv2.controllers
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.LinearLayout
@@ -9,6 +10,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import ie.setu.madassignemtv2.R
+import ie.setu.madassignemtv2.activities.DiscoverActivity
+import ie.setu.madassignemtv2.activities.SetsListActivity
 import ie.setu.madassignemtv2.models.LegoCollection
 import ie.setu.madassignemtv2.utilities.GlobalData
 import ie.setu.madassignemtv2.utilities.Utils
@@ -62,6 +65,9 @@ class CollectionsController(context: Context) {
 
         view.findViewById<TextView>(R.id.view_option).setOnClickListener {
             Toast.makeText(context, "Viewing Collection", Toast.LENGTH_SHORT).show()
+            val intent = Intent(context, SetsListActivity::class.java)
+            intent.putExtra("collection_name", collection.name)
+            context.startActivity(intent)
             bottomSheetDialog.dismiss()
         }
     }

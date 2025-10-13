@@ -66,13 +66,6 @@ class Utils(private val context: Context) {
         return current
     }
 
-    private fun showBottomSheet(context: Context, collection: LegoCollection, rootContainer: LinearLayout, collections: MutableList<LegoCollection>) {
-        val bottomSheetDialog = BottomSheetDialog(context)
-        val view = LayoutInflater.from(context).inflate(R.menu.menu_card_option, null)
-        bottomSheetDialog.setContentView(view)
-        bottomSheetDialog.show()
-
-    }
 
 
 }

@@ -46,6 +46,17 @@ class SetsController(context: Context) {
         return collection
     }
 
+    fun getSetFromName(name: String): LegoSet {
+        var legoSet = LegoSet()
+        for(set in globalData.loggedUserData.sets){
+            if(set.name == name){
+                legoSet = set
+                break
+            }
+        }
+        return legoSet
+    }
+
     fun listCollectionNames(): List<String>{
         val collectionNames = mutableListOf<String>()
         for (collection in globalData.loggedUserData.collections) {
