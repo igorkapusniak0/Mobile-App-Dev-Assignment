@@ -51,7 +51,7 @@ class SetsListActivity: AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = SetsAdapter(getCollection(), binding.recyclerView)
+        binding.recyclerView.adapter = SetsAdapter(getCollection(), binding.recyclerView, this::onSetSelected)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -88,6 +88,12 @@ class SetsListActivity: AppCompatActivity() {
         }
 
         return sets
+    }
+
+    private fun onSetSelected(set: LegoSet) {
+        val intent = Intent(this, SetActivity::class.java)
+        intent.putExtra("set_name", set.name)
+        startActivity(intent)
     }
 
 
