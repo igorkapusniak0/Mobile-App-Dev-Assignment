@@ -9,7 +9,7 @@ import ie.setu.madassignemtv2.databinding.CardSetBinding
 import ie.setu.madassignemtv2.models.LegoCollection
 import ie.setu.madassignemtv2.models.LegoSet
 
-class SetsAdapter(private var sets: MutableList<LegoSet>, recyclerView: RecyclerView, private val onSetClick: (LegoSet) -> Unit,) : RecyclerView.Adapter<SetsAdapter.MainHolder>() {
+class SetsAdapter(private var sets: MutableList<LegoSet>, recyclerView: RecyclerView, private val onSetClick: (LegoSet) -> Unit, private val onEditClicked: (LegoSet) -> Unit) : RecyclerView.Adapter<SetsAdapter.MainHolder>() {
     private val view = recyclerView
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
         val binding = CardSetBinding
@@ -20,20 +20,20 @@ class SetsAdapter(private var sets: MutableList<LegoSet>, recyclerView: Recycler
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
         val set = sets[holder.adapterPosition]
-        holder.bind(set, view, onSetClick)
+        holder.bind(set, view, onSetClick, onEditClicked)
     }
 
     override fun getItemCount(): Int = sets.size
 
-    class MainHolder(private val binding: CardSetBinding, ) : RecyclerView.ViewHolder(binding.root) {
+    class MainHolder(private val binding: CardSetBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(set: LegoSet, recyclerView: RecyclerView, onClick: (LegoSet) -> Unit) {
+        fun bind(set: LegoSet, recyclerView: RecyclerView, onClick: (LegoSet) -> Unit, onEditClicked: (LegoSet) -> Unit) {
             val setsController = SetsController(binding.root.context)
             binding.titleText.text = set.name
             binding.idText.text = set.setNumber.toString()
 
             binding.imageButton.setOnClickListener {
-                setsController.showBottomSheet(binding.root.context, set, recyclerView)
+                setsController.showBottomSheet(binding.root.context, set, recyclerView, onEditClicked)
             }
 
             binding.root.setOnClickListener {

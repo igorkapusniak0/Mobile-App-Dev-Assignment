@@ -10,7 +10,9 @@ data class LegoSet(
     var ageRange : Int = 0,
     var price : Float = 0f,
     var image : String = "",
-    var isPublic : Boolean = false
+    var isPublic : Boolean = false,
+    var collectionName: String = ""
+
 ) {
 
     override fun toString(): String {

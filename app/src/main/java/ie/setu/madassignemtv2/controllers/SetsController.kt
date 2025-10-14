@@ -1,6 +1,7 @@
 package ie.setu.madassignemtv2.controllers
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.TextView
@@ -8,6 +9,9 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import ie.setu.madassignemtv2.R
+import ie.setu.madassignemtv2.activities.EditSetActivity
+import ie.setu.madassignemtv2.activities.SetActivity
+import ie.setu.madassignemtv2.activities.SetsListActivity
 import ie.setu.madassignemtv2.models.LegoCollection
 import ie.setu.madassignemtv2.models.LegoSet
 import ie.setu.madassignemtv2.utilities.GlobalData
@@ -34,6 +38,20 @@ class SetsController(context: Context) {
         Log.d("user sets", collection.sets.toString())
 
     }
+
+    fun removeSet(set: LegoSet, collection: LegoCollection){
+        collection.sets.remove(set)
+        utils.saveUsersToFile()
+        Log.d("user sets", collection.sets.toString())
+    }
+
+    fun moveSet(set: LegoSet, newCollection: LegoCollection, formerCollection: LegoCollection){
+        newCollection.sets.add(set)
+        formerCollection.sets.remove(set)
+        utils.saveUsersToFile()
+    }
+
+
 
     fun getCollectionFromName(name: String): LegoCollection {
         var collection = LegoCollection()
@@ -85,7 +103,7 @@ class SetsController(context: Context) {
         utils.saveUsersToFile()
     }
 
-    fun showBottomSheet(context: Context, set: LegoSet, recyclerView: RecyclerView) {
+    fun showBottomSheet(context: Context, set: LegoSet, recyclerView: RecyclerView, onEditClicked: (LegoSet) -> Unit) {
         val bottomSheetDialog = BottomSheetDialog(context)
         val view = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_menu, null)
         bottomSheetDialog.setContentView(view)
@@ -100,11 +118,16 @@ class SetsController(context: Context) {
 
         view.findViewById<TextView>(R.id.edit_option).setOnClickListener {
             Toast.makeText(context, "Editing Collection", Toast.LENGTH_SHORT).show()
+            onEditClicked(set)
             bottomSheetDialog.dismiss()
         }
 
         view.findViewById<TextView>(R.id.view_option).setOnClickListener {
             Toast.makeText(context, "Viewing Collection", Toast.LENGTH_SHORT).show()
+            val intent = Intent(context, SetActivity::class.java)
+            intent.putExtra("set_name", set.name)
+            context.startActivity(intent)
+            recyclerView.adapter?.notifyDataSetChanged()
             bottomSheetDialog.dismiss()
         }
     }

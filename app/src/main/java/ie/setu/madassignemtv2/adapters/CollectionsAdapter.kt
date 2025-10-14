@@ -13,7 +13,10 @@ import ie.setu.madassignemtv2.databinding.CardCollectionBinding
 import ie.setu.madassignemtv2.models.LegoCollection
 import kotlin.math.max
 
-class CollectionsAdapter(private var collections: MutableList<LegoCollection>, private val onCollectionClick: (LegoCollection) -> Unit, recyclerView: RecyclerView) : RecyclerView.Adapter<CollectionsAdapter.MainHolder>() {
+class CollectionsAdapter(private var collections: MutableList<LegoCollection>,
+                         private val onCollectionClick: (LegoCollection) -> Unit,
+                         recyclerView: RecyclerView,
+                         private val onEditClicked: (LegoCollection) -> Unit) : RecyclerView.Adapter<CollectionsAdapter.MainHolder>() {
     private val view = recyclerView
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
         val binding = CardCollectionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -24,13 +27,13 @@ class CollectionsAdapter(private var collections: MutableList<LegoCollection>, p
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
         val collection = collections[holder.adapterPosition]
-        holder.bind(collection, onCollectionClick, view)
+        holder.bind(collection, onCollectionClick, view, onEditClicked)
     }
 
     override fun getItemCount(): Int = collections.size
 
     class MainHolder(private val binding: CardCollectionBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(collection: LegoCollection, onClick: (LegoCollection) -> Unit, recyclerView: RecyclerView) {
+        fun bind(collection: LegoCollection, onClick: (LegoCollection) -> Unit, recyclerView: RecyclerView, onEditClicked: (LegoCollection) -> Unit) {
             val collectionsController = CollectionsController(binding.root.context)
 
             binding.titleText.text = collection.name
@@ -43,7 +46,7 @@ class CollectionsAdapter(private var collections: MutableList<LegoCollection>, p
             }
 
             binding.imageButton.setOnClickListener {
-                collectionsController.showBottomSheet(binding.root.context, collection, recyclerView)
+                collectionsController.showBottomSheet(binding.root.context, collection, recyclerView, onEditClicked)
             }
 
         }

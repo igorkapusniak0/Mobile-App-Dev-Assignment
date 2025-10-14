@@ -68,6 +68,7 @@ class SetsActivity: AppCompatActivity() {
             set.pieceCount = binding.pieceCountField.text.toString().toInt()
             set.price = binding.priceField.text.toString().toFloat()
             set.isPublic = binding.isPublicSwitch.isChecked
+            set.collectionName = binding.collectionSpinner.selectedItem.toString()
             val collection = controller.getCollectionFromName(binding.collectionSpinner.selectedItem.toString())
 
             if (set.name.isNotEmpty() && set.setNumber != 0 && set.pieceCount != 0 && set.price != 0.0f) {

@@ -1,5 +1,6 @@
 package ie.setu.madassignemtv2.controllers
 
+import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.util.Log
@@ -7,10 +8,14 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import ie.setu.madassignemtv2.R
 import ie.setu.madassignemtv2.activities.DiscoverActivity
+import ie.setu.madassignemtv2.activities.EditCollectionActivity
+import ie.setu.madassignemtv2.activities.EditSetActivity
 import ie.setu.madassignemtv2.activities.SetsListActivity
 import ie.setu.madassignemtv2.models.LegoCollection
 import ie.setu.madassignemtv2.utilities.GlobalData
@@ -43,9 +48,19 @@ class CollectionsController(context: Context) {
         utils.saveUsersToFile()
     }
 
+    fun getCollectionFromName(name: String): LegoCollection {
+        var collection = LegoCollection()
+        for(col in globalData.loggedUserData.collections){
+            if(col.name == name){
+                collection = col
+                break
+            }
+        }
+        return collection
+    }
 
 
-    fun showBottomSheet(context: Context, collection: LegoCollection, recyclerView: RecyclerView) {
+    fun showBottomSheet(context: Context, collection: LegoCollection, recyclerView: RecyclerView, onEditClicked: (LegoCollection) -> Unit) {
         val bottomSheetDialog = BottomSheetDialog(context)
         val view = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_menu, null)
         bottomSheetDialog.setContentView(view)
@@ -60,6 +75,7 @@ class CollectionsController(context: Context) {
 
         view.findViewById<TextView>(R.id.edit_option).setOnClickListener {
             Toast.makeText(context, "Editing Collection", Toast.LENGTH_SHORT).show()
+            onEditClicked(collection)
             bottomSheetDialog.dismiss()
         }
 
@@ -68,8 +84,11 @@ class CollectionsController(context: Context) {
             val intent = Intent(context, SetsListActivity::class.java)
             intent.putExtra("collection_name", collection.name)
             context.startActivity(intent)
+            recyclerView.adapter?.notifyDataSetChanged()
             bottomSheetDialog.dismiss()
         }
     }
+
+
 
 }

@@ -1,14 +1,17 @@
 package ie.setu.madassignemtv2.fragment
 
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import ie.setu.madassignemtv2.R
+import ie.setu.madassignemtv2.activities.EditSetActivity
 import ie.setu.madassignemtv2.activities.SetsListActivity
 import ie.setu.madassignemtv2.adapters.SetsAdapter
 import ie.setu.madassignemtv2.controllers.DiscoverController
@@ -37,7 +40,7 @@ class SetsFragment : Fragment(R.layout.fragment_sets) {
 
         val sets = controller.getAllPublicSets()
         Log.d("sts", sets.toString())
-        setsAdapter = SetsAdapter(sets, binding.recyclerView,this::onCollectionSelected)
+        setsAdapter = SetsAdapter(sets, binding.recyclerView,this::onCollectionSelected, this::onEditSetClicked)
         binding.recyclerView.adapter = setsAdapter
         setsAdapter.notifyDataSetChanged()
     }
@@ -51,5 +54,17 @@ class SetsFragment : Fragment(R.layout.fragment_sets) {
         val intent = Intent(binding.root.context, SetsListActivity::class.java)
         intent.putExtra("set_name", set.name)
         startActivity(intent)
+    }
+
+    private val editResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == RESULT_OK) {
+            binding.recyclerView.adapter?.notifyDataSetChanged()
+        }
+    }
+
+    private fun onEditSetClicked(set: LegoSet) {
+        val intent = Intent(context, EditSetActivity::class.java)
+        intent.putExtra("set_name", set.name)
+        editResultLauncher.launch(intent)
     }
 }

@@ -48,7 +48,7 @@ class CollectionsListActivity: AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = CollectionsAdapter(globalData.loggedUserData.collections, this::onCollectionSelected, binding.recyclerView)
+        binding.recyclerView.adapter = CollectionsAdapter(globalData.loggedUserData.collections, this::onCollectionSelected, binding.recyclerView, this::onEditCollectionClicked)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -72,19 +72,22 @@ class CollectionsListActivity: AppCompatActivity() {
             }
     }
 
-    val getResultSets = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (it.resultCode == RESULT_OK) {
-            var binding = ActivitySetsListBinding.inflate(layoutInflater)
-            (binding.recyclerView.adapter)?.
-            notifyItemRangeChanged(0,globalData.loggedUserData.sets.size)
-        }
-    }
-
     private fun onCollectionSelected(collection: LegoCollection) {
         val intent = Intent(this, SetsListActivity::class.java)
         intent.putExtra("collection_name", collection.name)
         startActivity(intent)
     }
 
+    private val editResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == RESULT_OK) {
+            binding.recyclerView.adapter?.notifyDataSetChanged()
+        }
+    }
+
+    private fun onEditCollectionClicked(collection: LegoCollection) {
+        val intent = Intent(this, EditCollectionActivity::class.java)
+        intent.putExtra("collection_name", collection.name)
+        editResultLauncher.launch(intent)
+    }
 
 }
