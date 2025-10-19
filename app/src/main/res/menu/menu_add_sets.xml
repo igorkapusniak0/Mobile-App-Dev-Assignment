@@ -1,9 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_search"
+        android:title="Search"
+        android:icon="@android:drawable/ic_menu_search"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView" />
+
     <item
         android:id="@+id/item_add"
         android:icon="@android:drawable/ic_menu_add"
         android:title="temp"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_sort"
+        android:title="Sort"
+        android:icon="@android:drawable/ic_menu_search"
+        app:showAsAction="never">
+        <menu>
+            <item
+                android:id="@+id/set_sort_name_asc"
+                android:title="Name (A-Z)" />
+            <item
+                android:id="@+id/set_sort_name_desc"
+                android:title="Name (Z-A)" />
+            <item
+                android:id="@+id/set_sort_number_asc"
+                android:title="ID (Low -> High)" />
+            <item
+                android:id="@+id/set_sort_number_desc"
+                android:title="ID (High -> Low)" />
+            <item
+                android:id="@+id/set_sort_pieceCount_asc"
+                android:title="Number of Pieces (Low - High)" />
+            <item
+                android:id="@+id/set_sort_pieceCount_desc"
+                android:title="Number of Pieces (High -> Low)" />
+            <item
+                android:id="@+id/set_sort_age_asc"
+                android:title="Minimum Age (Low - High)" />
+            <item
+                android:id="@+id/set_sort_age_desc"
+                android:title="Minimum Age (High -> Low)" />
+            <item
+                android:id="@+id/set_sort_price_asc"
+                android:title="Price (Low - High)" />
+            <item
+                android:id="@+id/set_sort_pieceCount_desc"
+                android:title="Price (High -> Low)" />
+        </menu>
+    </item>
 </menu>

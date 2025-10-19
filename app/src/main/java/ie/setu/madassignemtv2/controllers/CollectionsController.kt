@@ -89,6 +89,25 @@ class CollectionsController(context: Context) {
         }
     }
 
+    fun filterCollection(filter: String, collections: List<LegoCollection>) : MutableList<LegoCollection>{
+        Log.d("pre filter: ", collections.toString())
+        val filteredCollections = mutableListOf<LegoCollection>()
+        Log.d("is Empty?: ", filter.isEmpty().toString())
+        if (filter.isEmpty()){
+            filteredCollections.addAll(collections)
+        }
+        else{
+            for (collection in collections){
+                if (collection.toString().contains(filter, ignoreCase = true)){
+                    filteredCollections.add(collection)
+                }
+            }
+        }
+
+        //Log.d("filter col", legoCollections.toString())
+        return filteredCollections
+    }
+
 
 
 }

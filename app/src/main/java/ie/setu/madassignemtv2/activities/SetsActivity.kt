@@ -67,6 +67,7 @@ class SetsActivity: AppCompatActivity() {
             set.setNumber = binding.setNumberField.text.toString().toInt()
             set.pieceCount = binding.pieceCountField.text.toString().toInt()
             set.price = binding.priceField.text.toString().toFloat()
+            set.ageRange = binding.ageRangeField.toString().toInt()
             set.isPublic = binding.isPublicSwitch.isChecked
             set.collectionName = binding.collectionSpinner.selectedItem.toString()
             val collection = controller.getCollectionFromName(binding.collectionSpinner.selectedItem.toString())

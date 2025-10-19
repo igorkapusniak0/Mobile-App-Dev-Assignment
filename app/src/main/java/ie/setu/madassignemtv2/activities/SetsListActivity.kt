@@ -2,12 +2,15 @@ package ie.setu.madassignemtv2.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import ie.setu.madassignemtv2.R
+import ie.setu.madassignemtv2.adapters.CollectionsAdapter
 import ie.setu.madassignemtv2.adapters.SetsAdapter
 import ie.setu.madassignemtv2.controllers.SetsController
 import ie.setu.madassignemtv2.databinding.ActivitySetsListBinding
@@ -20,6 +23,7 @@ class SetsListActivity: AppCompatActivity() {
     lateinit var app: MainApp
     private var controller = SetsController(this)
     private var globalData = GlobalData
+    private lateinit var sets: MutableList<LegoSet>
     private lateinit var binding: ActivitySetsListBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,8 +32,8 @@ class SetsListActivity: AppCompatActivity() {
         setContentView(binding.root)
         binding.toolbar.title = title
         setSupportActionBar(binding.toolbar)
-
-
+        sets = mutableListOf()
+        sets = getCollection()
 
         app = application as MainApp
 
@@ -51,11 +55,32 @@ class SetsListActivity: AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = SetsAdapter(getCollection(), binding.recyclerView, this::onSetSelected , this::onEditSetClicked)
+        binding.recyclerView.adapter = SetsAdapter(sets, binding.recyclerView, this::onSetSelected , this::onEditSetClicked)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_add_collection, menu)
+        menuInflater.inflate(R.menu.menu_add_sets, menu)
+
+        val searchItem = menu.findItem(R.id.action_search)
+        val searchView = searchItem.actionView as SearchView
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                val input = query ?: ""
+                Log.d("SearchInput", "Submitted: $input")
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                val input = newText ?: ""
+                Log.d("SearchInput", "Changed: $input")
+                sets = controller.filterSets(input, getCollection())
+                Log.d("filter col", sets.toString())
+                (binding.recyclerView.adapter as? SetsAdapter)?.updateList(sets)
+                return true
+            }
+        })
+
         return super.onCreateOptionsMenu(menu)
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -64,6 +89,47 @@ class SetsListActivity: AppCompatActivity() {
                 val launcherIntent = Intent(this, SetsActivity::class.java)
                 getResult.launch(launcherIntent)
             }
+            R.id.set_sort_name_asc -> {
+                sets.sortBy { it.name }
+                binding.recyclerView.adapter?.notifyDataSetChanged()
+            }
+            R.id.collection_sort_name_desc -> {
+                sets.sortByDescending { it.name }
+                binding.recyclerView.adapter?.notifyDataSetChanged()
+            }
+            R.id.set_sort_number_asc -> {
+                sets.sortBy { it.setNumber }
+                binding.recyclerView.adapter?.notifyDataSetChanged()
+            }
+            R.id.set_sort_number_desc -> {
+                sets.sortByDescending { it.setNumber }
+                binding.recyclerView.adapter?.notifyDataSetChanged()
+            }
+            R.id.set_sort_pieceCount_asc -> {
+                sets.sortBy { it.pieceCount }
+                binding.recyclerView.adapter?.notifyDataSetChanged()
+            }
+            R.id.set_sort_pieceCount_desc -> {
+                sets.sortByDescending { it.pieceCount }
+                binding.recyclerView.adapter?.notifyDataSetChanged()
+            }
+            R.id.set_sort_age_asc -> {
+                sets.sortBy { it.ageRange }
+                binding.recyclerView.adapter?.notifyDataSetChanged()
+            }
+            R.id.set_sort_age_desc -> {
+                sets.sortByDescending { it.ageRange }
+                binding.recyclerView.adapter?.notifyDataSetChanged()
+            }
+            R.id.set_sort_price_asc -> {
+                sets.sortBy { it.price }
+                binding.recyclerView.adapter?.notifyDataSetChanged()
+            }
+            R.id.set_sort_price_asc -> {
+                sets.sortByDescending { it.price }
+                binding.recyclerView.adapter?.notifyDataSetChanged()
+            }
+
         }
         return super.onOptionsItemSelected(item)
     }
@@ -79,12 +145,12 @@ class SetsListActivity: AppCompatActivity() {
     }
 
     private fun getCollection() : MutableList<LegoSet>{
-        var sets: MutableList<LegoSet>
+        val sets= mutableListOf<LegoSet>()
         val collectionName = intent.getStringExtra("collection_name")
-        sets = if (collectionName == null){
-            globalData.loggedUserData.sets
+        if (collectionName == null){
+            sets.addAll(globalData.loggedUserData.sets)
         } else{
-            controller.getCollectionFromName(collectionName).sets
+            sets.addAll(controller.getCollectionFromName(collectionName).sets)
         }
 
         return sets

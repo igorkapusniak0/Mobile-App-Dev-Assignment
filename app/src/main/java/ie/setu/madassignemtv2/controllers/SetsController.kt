@@ -132,4 +132,22 @@ class SetsController(context: Context) {
         }
     }
 
+    fun filterSets(filter: String, sets: List<LegoSet>) : MutableList<LegoSet>{
+        Log.d("pre filter: ", sets.toString())
+        val filteredSets = mutableListOf<LegoSet>()
+        Log.d("is Empty?: ", filter.isEmpty().toString())
+        if (filter.isEmpty()){
+            filteredSets.addAll(sets)
+        }
+        else{
+            for (set in sets){
+                if (set.toString().contains(filter, ignoreCase = true)){
+                    filteredSets.add(set)
+                }
+            }
+        }
+
+        return filteredSets
+    }
+
 }

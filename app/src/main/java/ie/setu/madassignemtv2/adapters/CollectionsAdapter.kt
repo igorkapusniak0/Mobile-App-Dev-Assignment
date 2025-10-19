@@ -30,6 +30,12 @@ class CollectionsAdapter(private var collections: MutableList<LegoCollection>,
         holder.bind(collection, onCollectionClick, view, onEditClicked)
     }
 
+    fun updateList(newCollections: List<LegoCollection>) {
+        collections.clear()
+        collections.addAll(newCollections)
+        notifyDataSetChanged()
+    }
+
     override fun getItemCount(): Int = collections.size
 
     class MainHolder(private val binding: CardCollectionBinding) : RecyclerView.ViewHolder(binding.root) {

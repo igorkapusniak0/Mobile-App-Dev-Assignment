@@ -1,9 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_search"
+        android:title="Search"
+        android:icon="@android:drawable/ic_menu_search"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView" />
+
+
     <item
         android:id="@+id/item_add"
         android:icon="@android:drawable/ic_menu_add"
         android:title="temp"
         app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/action_sort"
+        android:title="Sort"
+        android:icon="@android:drawable/ic_menu_search"
+        app:showAsAction="never">
+        <menu>
+            <item
+                android:id="@+id/collection_sort_name_asc"
+                android:title="Name (A-Z)" />
+            <item
+                android:id="@+id/collection_sort_name_desc"
+                android:title="Name (Z-A)" />
+            <item
+                android:id="@+id/collection_sort_date_asc"
+                android:title="Date (Old -> New)" />
+            <item
+                android:id="@+id/collection_sort_date_desc"
+                android:title="Date (New -> Old)" />
+            <item
+                android:id="@+id/collection_sort_sets_num_asc"
+                android:title="Number of Sets (Low - High)" />
+            <item
+                android:id="@+id/collection_sort_sets_num_desc"
+                android:title="Number of Sets (High -> Low)" />
+        </menu>
+    </item>
 </menu>

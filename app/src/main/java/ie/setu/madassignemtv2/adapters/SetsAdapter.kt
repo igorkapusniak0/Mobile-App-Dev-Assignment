@@ -23,6 +23,12 @@ class SetsAdapter(private var sets: MutableList<LegoSet>, recyclerView: Recycler
         holder.bind(set, view, onSetClick, onEditClicked)
     }
 
+    fun updateList(newSets: List<LegoSet>) {
+        sets.clear()
+        sets.addAll(newSets)
+        notifyDataSetChanged()
+    }
+
     override fun getItemCount(): Int = sets.size
 
     class MainHolder(private val binding: CardSetBinding) : RecyclerView.ViewHolder(binding.root) {
