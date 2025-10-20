@@ -147,9 +147,15 @@ class SetsListActivity: AppCompatActivity() {
     private fun getCollection() : MutableList<LegoSet>{
         val sets= mutableListOf<LegoSet>()
         val collectionName = intent.getStringExtra("collection_name")
+        val public = intent.getStringExtra("public")
+        Log.d("Is Public", public.toString())
         if (collectionName == null){
             sets.addAll(globalData.loggedUserData.sets)
-        } else{
+        }
+        else if (public == "public"){
+            sets.addAll(controller.getPublicCollectionFromName(collectionName).sets)
+        }
+        else{
             sets.addAll(controller.getCollectionFromName(collectionName).sets)
         }
 

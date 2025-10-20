@@ -38,9 +38,16 @@ class SetActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val setName = intent.getStringExtra("set_name")
-        var set = LegoSet()
-        if (setName != null){
-            set = controller.getSetFromName(setName)
+        val public = intent.getStringExtra("public")
+        var set: LegoSet
+        Log.d("set name", setName.toString())
+        if (public == "public"){
+            set = controller.getPublicSetFromName(setName.toString())
+            Log.d("public set", set.toString())
+        }
+        else {
+            set = controller.getSetFromName(setName.toString())
+            Log.d("private set", set.toString())
         }
 
         binding = ActivitySetBinding.inflate(layoutInflater)

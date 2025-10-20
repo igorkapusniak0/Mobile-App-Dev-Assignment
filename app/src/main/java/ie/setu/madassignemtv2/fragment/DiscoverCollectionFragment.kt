@@ -19,6 +19,7 @@ import ie.setu.madassignemtv2.controllers.DiscoverController
 import ie.setu.madassignemtv2.databinding.FragmentCollectionsBinding
 import ie.setu.madassignemtv2.databinding.FragmentSetsBinding
 import ie.setu.madassignemtv2.models.LegoCollection
+import kotlinx.serialization.builtins.TripleSerializer
 
 class CollectionsFragment : Fragment(R.layout.fragment_sets) {
     private var _binding: FragmentSetsBinding? = null
@@ -54,6 +55,7 @@ class CollectionsFragment : Fragment(R.layout.fragment_sets) {
     private fun onCollectionSelected(collection: LegoCollection) {
         val intent = Intent(binding.root.context, SetsListActivity::class.java)
         intent.putExtra("collection_name", collection.name)
+        intent.putExtra("public", "public")
         startActivity(intent)
     }
 

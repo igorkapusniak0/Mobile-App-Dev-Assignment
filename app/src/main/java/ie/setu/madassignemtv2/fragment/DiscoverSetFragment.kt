@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import ie.setu.madassignemtv2.R
 import ie.setu.madassignemtv2.activities.EditSetActivity
+import ie.setu.madassignemtv2.activities.SetActivity
+import ie.setu.madassignemtv2.activities.SetsActivity
 import ie.setu.madassignemtv2.activities.SetsListActivity
 import ie.setu.madassignemtv2.adapters.SetsAdapter
 import ie.setu.madassignemtv2.controllers.DiscoverController
@@ -51,8 +53,9 @@ class SetsFragment : Fragment(R.layout.fragment_sets) {
     }
 
     private fun onCollectionSelected(set: LegoSet) {
-        val intent = Intent(binding.root.context, SetsListActivity::class.java)
+        val intent = Intent(binding.root.context, SetActivity::class.java)
         intent.putExtra("set_name", set.name)
+        intent.putExtra("public", "public")
         startActivity(intent)
     }
 
