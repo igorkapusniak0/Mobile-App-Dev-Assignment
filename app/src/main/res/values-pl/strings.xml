@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Zadanie MAD V2</string>
+    <string name="sign_out">Wyloguj się</string>
+    <string name="dark_mode">Przełącz na tryb ciemny</string>
+    <string name="light_mode">Przełącz na tryb jasny</string>
+    <string name="edit_user">Edytuj dane użytkownika</string>
+    <string name="add_collection">Dodaj kolekcję</string>
+    <string name="add_set">Dodaj zestaw</string>
+    <string name="collection_name_hint">Nazwa kolekcji</string>
+    <string name="collection_description_hint">Opis kolekcji</string>
+    <string name="add_image_button">Dodaj obraz</string>
+    <string name="set_name_hint">Nazwa zestawu</string>
+    <string name="set_description_hint">Opis zestawu</string>
+    <string name="is_public">Dostępne publicznie</string>
+    <string name="added_collection">Kolekcja została dodana</string>
+    <string name="added_set">Zestaw został dodany</string>
+    <string name="set_number_hint">Numer zestawu</string>
+    <string name="set_piece_count">Liczba elementów</string>
+    <string name="set_age_range">Wiek zestawu</string>
+    <string name="set_price">Cena zestawu</string>
+    <string name="set_name">Nazwa zestawu</string>
+    <string name="set_id">Numer zestawu</string>
+    <string name="collection_name">Nazwa kolekcji</string>
+    <string name="collection_description">Opis kolekcji</string>
+    <string name="collection_set_number">Liczba zestawów</string>
+    <string name="collection_date">DD-MM-RRRR</string>
+    <string name="collections">Kolekcje</string>
+    <string name="sets">Zestawy</string>
+    <string name="add">Dodaj</string>
+    <string name="map">Mapa</string>
+    <string name="discover">Odkrywaj</string>
+    <string name="settings">Ustawienia</string>
+    <string name="public_collections">Publiczne kolekcje</string>
+    <string name="public_sets">Publiczne zestawy</string>
+    <string name="login_button">Zaloguj się</string>
+    <string name="register_button">Zarejestruj się</string>
+    <string name="username_hint">Nazwa użytkownika</string>
+    <string name="password_hint">Hasło</string>
+    <string name="user_not_exist">Użytkownik nie istnieje</string>
+    <string name="incorrect_password">Nieprawidłowe hasło</string>
+    <string name="user_exist">Użytkownik już istnieje</string>
+    <string name="lego">LEGO</string>
+</resources>

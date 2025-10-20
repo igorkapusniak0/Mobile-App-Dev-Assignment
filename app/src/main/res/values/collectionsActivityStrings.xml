@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="collection_name">Collection Name</string>
-    <string name="collection_description">Collection Description</string>
-    <string name="collection_set_number">Number of Sets</string>
-    <string name="collection_date">DD-MM-YYYY</string>
-
-</resources>

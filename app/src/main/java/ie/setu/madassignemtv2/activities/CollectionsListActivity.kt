@@ -1,6 +1,7 @@
 package ie.setu.madassignemtv2.activities
 
 import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +19,7 @@ import ie.setu.madassignemtv2.databinding.ActivitySetsListBinding
 import ie.setu.madassignemtv2.main.MainApp
 import ie.setu.madassignemtv2.models.LegoCollection
 import ie.setu.madassignemtv2.utilities.GlobalData
+import ie.setu.madassignemtv2.utilities.LocaleHelper
 
 class CollectionsListActivity: AppCompatActivity() {
     lateinit var app: MainApp
@@ -30,7 +32,7 @@ class CollectionsListActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCollectionsListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.toolbar.title = title
+        binding.toolbar.title = getString(R.string.app_name)
         controller = CollectionsController(this)
         setSupportActionBar(binding.toolbar)
         collections = mutableListOf()
@@ -62,6 +64,11 @@ class CollectionsListActivity: AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = CollectionsAdapter(collections, this::onCollectionSelected, binding.recyclerView, this::onEditCollectionClicked)
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        val context = LocaleHelper.setLocale(newBase, "pl")
+        super.attachBaseContext(context)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

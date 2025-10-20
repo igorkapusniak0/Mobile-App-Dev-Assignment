@@ -11,6 +11,7 @@ import ie.setu.madassignemtv2.models.LegoCollection
 import ie.setu.madassignemtv2.models.User
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import org.intellij.lang.annotations.Language
 import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -51,6 +52,11 @@ class Utils(private val context: Context) {
         return retVal
     }
 
+    fun setLanguage(language: String){
+        globalData.loggedUserData.language = language
+        saveUsersToFile()
+    }
+
     fun toggleDarkMode(){
         val currentMode = AppCompatDelegate.getDefaultNightMode()
         if (currentMode == AppCompatDelegate.MODE_NIGHT_YES){
@@ -61,6 +67,7 @@ class Utils(private val context: Context) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             globalData.loggedUserData.darkMode = true
         }
+        saveUsersToFile()
     }
 
     fun setDarkMode(){
@@ -73,7 +80,7 @@ class Utils(private val context: Context) {
     }
 
     fun getUserByName(userName: String): User{
-        var retUser = User ()
+        var retUser = User()
         for(user in globalData.usersData){
             if (userName == user.name){
                 retUser = user

@@ -1,6 +1,7 @@
 package ie.setu.madassignemtv2.activities
 
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -10,16 +11,24 @@ import ie.setu.madassignemtv2.R
 import ie.setu.madassignemtv2.databinding.ActivityEditUserBinding
 import ie.setu.madassignemtv2.main.MainApp
 import ie.setu.madassignemtv2.utilities.GlobalData
+import ie.setu.madassignemtv2.utilities.LocaleHelper
+import ie.setu.madassignemtv2.utilities.Utils
 
 class EditUserActivity: AppCompatActivity() {
 
     lateinit var app: MainApp
     private var globalData = GlobalData
+    private var utils = Utils(this)
     private lateinit var binding: ActivityEditUserBinding
 
     override fun onCreateOptionsMenu(menu:Menu): Boolean {
         menuInflater.inflate(R.menu.menu_cancel_collection, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        val context = LocaleHelper.setLocale(newBase, "pl")
+        super.attachBaseContext(context)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -50,7 +59,7 @@ class EditUserActivity: AppCompatActivity() {
             if (binding.passwordField.text.toString().isNotEmpty()){
                 globalData.loggedUserData.password = binding.passwordField.text.toString()
             }
-
+            utils.saveUsersToFile()
             setResult(RESULT_OK)
             finish()
 
