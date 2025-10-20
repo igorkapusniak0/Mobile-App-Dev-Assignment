@@ -50,6 +50,11 @@ class CollectionsListActivity: AppCompatActivity() {
                     startActivity(launcherIntent)
                     true
                 }
+                R.id.nav_settings-> {
+                    val launcherIntent = Intent(this, ProfileActivity::class.java)
+                    startActivity(launcherIntent)
+                    true
+                }
                 else -> false
             }
         }

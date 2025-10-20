@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import ie.setu.madassignemtv2.R
 import ie.setu.madassignemtv2.models.LegoCollection
@@ -48,6 +49,27 @@ class Utils(private val context: Context) {
             retVal = true
         }
         return retVal
+    }
+
+    fun toggleDarkMode(){
+        val currentMode = AppCompatDelegate.getDefaultNightMode()
+        if (currentMode == AppCompatDelegate.MODE_NIGHT_YES){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            globalData.loggedUserData.darkMode = false
+        }
+        else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            globalData.loggedUserData.darkMode = true
+        }
+    }
+
+    fun setDarkMode(){
+        if (globalData.loggedUserData.darkMode){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
+        else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
     }
 
     fun getUserByName(userName: String): User{

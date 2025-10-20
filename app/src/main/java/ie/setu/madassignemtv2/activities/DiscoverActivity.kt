@@ -62,6 +62,11 @@ class DiscoverActivity: AppCompatActivity() {
                     getResultCollections.launch(launcherIntent)
                     true
                 }
+                R.id.nav_settings-> {
+                    val launcherIntent = Intent(this, ProfileActivity::class.java)
+                    startActivity(launcherIntent)
+                    true
+                }
                 else -> false
             }
         }

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MADAssignemtV2</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="dark_mode">Switch to Dark Mode</string>
+    <string name="light_mode">Switch to Light Mode</string>
+    <string name="edit_user">Edit User Details</string>
 </resources>

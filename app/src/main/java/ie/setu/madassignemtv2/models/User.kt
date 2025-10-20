@@ -6,6 +6,7 @@ import kotlinx.serialization.Serializable
 data class User(
     var name: String = "",
     var password: String = "",
+    var darkMode: Boolean = false,
     var collections: MutableList<LegoCollection> = mutableListOf(),
     var sets: MutableList<LegoSet> = mutableListOf()
 ) {
