@@ -71,7 +71,7 @@
 
 
     <Button
-        android:id="@+id/update_user"
+        android:id="@+id/updateUser"
         android:layout_width="164dp"
         android:layout_height="61dp"
         android:layout_alignParentBottom="true"
@@ -87,6 +87,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.708" />
 
+    <TextView
+        android:id="@+id/missing"
+        android:layout_width="214dp"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.452"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/appBarLayout"
+        app:layout_constraintVertical_bias="0.526" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

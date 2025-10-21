@@ -95,10 +95,10 @@ class EditSetActivity: AppCompatActivity() {
         Log.d("collection Name", set.collectionName)
 
         binding.addSetButton.setOnClickListener {
-            if(binding.nameField.text.toString().isNotEmpty()){
+            if(binding.nameField.text.toString().isNotEmpty() && !controller.setNameExists(binding.nameField.text.toString())){
                 set.name = binding.nameField.text.toString()
             }
-            if (binding.setNumberField.text.toString().isNotEmpty()){
+            if (binding.setNumberField.text.toString().isNotEmpty() && !controller.setIDExists(binding.setNumberField.text.toString().toInt())){
                 set.setNumber = binding.setNumberField.text.toString().toInt()
             }
             if (binding.pieceCountField.text.toString().isNotEmpty()){

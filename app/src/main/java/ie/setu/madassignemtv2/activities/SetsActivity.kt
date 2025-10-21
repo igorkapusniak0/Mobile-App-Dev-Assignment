@@ -78,12 +78,12 @@ class SetsActivity: AppCompatActivity() {
             set.setNumber = binding.setNumberField.text.toString().toInt()
             set.pieceCount = binding.pieceCountField.text.toString().toInt()
             set.price = binding.priceField.text.toString().toFloat()
-            set.ageRange = binding.ageRangeField.toString().toInt()
+            set.ageRange = binding.ageRangeField.text.toString().toInt()
             set.isPublic = binding.isPublicSwitch.isChecked
             set.collectionName = binding.collectionSpinner.selectedItem.toString()
             val collection = controller.getCollectionFromName(binding.collectionSpinner.selectedItem.toString())
 
-            if (set.name.isNotEmpty() && set.setNumber != 0 && set.pieceCount != 0 && set.price != 0.0f) {
+            if (set.name.isNotEmpty() && set.setNumber != 0 && set.pieceCount != 0 && set.price != 0.0f && !controller.setNameExists(set.name) && !controller.setIDExists(set.setNumber)) {
                 controller.addSet(set, collection)
                 Log.i("add Button Pressed", set.toString())
                 setResult(RESULT_OK)

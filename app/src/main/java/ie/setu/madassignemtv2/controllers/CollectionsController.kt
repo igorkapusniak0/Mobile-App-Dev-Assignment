@@ -59,6 +59,10 @@ class CollectionsController(context: Context) {
         return collection
     }
 
+    fun collectionNameExists(name: String): Boolean {
+        return globalData.loggedUserData.collections.indexOfFirst { it.name == name } != -1
+    }
+
 
     fun showBottomSheet(context: Context, collection: LegoCollection, recyclerView: RecyclerView, onEditClicked: (LegoCollection) -> Unit) {
         val bottomSheetDialog = BottomSheetDialog(context)

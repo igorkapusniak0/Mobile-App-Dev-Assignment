@@ -77,6 +77,13 @@ class SetsController(context: Context) {
         return collection
     }
 
+    fun setNameExists(name: String): Boolean {
+        return globalData.loggedUserData.sets.indexOfFirst { it.name == name } != -1
+    }
+
+    fun setIDExists(id: Int): Boolean {
+        return globalData.loggedUserData.sets.indexOfFirst { it.setNumber == id } != -1
+    }
     fun getSetFromName(name: String): LegoSet {
         var legoSet = LegoSet()
         for(set in globalData.loggedUserData.sets){

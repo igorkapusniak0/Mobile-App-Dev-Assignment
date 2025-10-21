@@ -149,13 +149,9 @@ class SetsListActivity: AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private val getResult =
-            registerForActivityResult(
-                    ActivityResultContracts.StartActivityForResult()
-            ) {
+    private val getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == RESULT_OK) {
-            (binding.recyclerView.adapter)?.
-            notifyItemRangeChanged(0,getCollection().size)
+            (binding.recyclerView.adapter as SetsAdapter).updateList(getCollection())
         }
     }
 

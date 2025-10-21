@@ -32,7 +32,7 @@ class LoginController(context: Context) {
 
 
 
-    private fun userExists(username: String) : Boolean{
+    fun userExists(username: String) : Boolean{
         var userExists = false
         for (user in globalData.usersData){
             if (username.lowercase() == user.name.lowercase()){
@@ -48,7 +48,7 @@ class LoginController(context: Context) {
         val file = File(context.filesDir,utils.saveFileName)
         if (!file.exists()) {
             file.createNewFile()
-            file.writeText("") // optional
+            file.writeText("")
             Log.d("SaveFile", "File created at ${file.absolutePath}")
         }
 

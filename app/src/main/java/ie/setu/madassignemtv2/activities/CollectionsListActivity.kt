@@ -134,8 +134,8 @@ class CollectionsListActivity: AppCompatActivity() {
 
      val getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == RESULT_OK) {
-                (binding.recyclerView.adapter)?.
-                notifyItemRangeChanged(0,globalData.loggedUserData.collections.size)
+                collections = globalData.loggedUserData.collections
+                (binding.recyclerView.adapter as CollectionsAdapter).updateList(collections)
             }
     }
 
@@ -156,5 +156,7 @@ class CollectionsListActivity: AppCompatActivity() {
         intent.putExtra("collection_name", collection.name)
         editResultLauncher.launch(intent)
     }
+
+
 
 }

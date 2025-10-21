@@ -56,12 +56,14 @@ class LoginActivity : AppCompatActivity(){
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 val language = parent.getItemAtPosition(position).toString()
                 if (language == "pl" || language == "eng") {
-                    utils.setLanguage(language)
-                    LocaleHelper.setLocale(this@LoginActivity, language)
+                    if (language != utils.getLanguage()) {
+                        utils.setLanguage(language)
+                        LocaleHelper.setLocale(this@LoginActivity, language)
 
-                    val intent = Intent(this@LoginActivity, LoginActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                        val intent = Intent(this@LoginActivity, LoginActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
                 }
             }
 
@@ -69,24 +71,32 @@ class LoginActivity : AppCompatActivity(){
         }
 
         binding.loginButton.setOnClickListener {
+
             val username = binding.usernameField.text.toString()
             val password = binding.passwordField.text.toString()
-            val loginResponse: Int = loginController.loginUser(username, password)
-            when (loginResponse) {
-                1 -> {
-                    val intent = Intent(this@LoginActivity, CollectionsListActivity::class.java)
-                    utils.setDarkMode()
-                    startActivity(intent)
+
+            if (username.isNotBlank() || password.isNotBlank()){
+                val loginResponse: Int = loginController.loginUser(username, password)
+                when (loginResponse) {
+                    1 -> {
+                        val intent = Intent(this@LoginActivity, CollectionsListActivity::class.java)
+                        utils.setDarkMode()
+                        startActivity(intent)
+                    }
+                    0 -> {
+                        binding.errorMessageTextView.text = getString(R.string.user_not_exist)
+                    }
+                    2 -> {
+                        binding.errorMessageTextView.text = getString(R.string.incorrect_password)
+                    }
                 }
-                0 -> {
-                    binding.errorMessageTextView.text = getString(R.string.user_not_exist)
-                }
-                2 -> {
-                    binding.errorMessageTextView.text = getString(R.string.incorrect_password)
-                }
+                Log.d("Username" ,username)
+                Log.d("Password" ,password)
             }
-            Log.d("Username" ,username)
-            Log.d("Password" ,password)
+            else{
+                binding.errorMessageTextView.text = getString(R.string.missing_login_info)
+            }
+
         }
 
         binding.registerButton.setOnClickListener {
@@ -94,7 +104,7 @@ class LoginActivity : AppCompatActivity(){
             val password = binding.passwordField.text.toString()
             val registerResponse: Boolean = loginController.registerUser(this, username, password)
             if (registerResponse){
-                val intent = Intent(this@LoginActivity, CollectionsActivity::class.java)
+                val intent = Intent(this@LoginActivity, CollectionsListActivity::class.java)
                 startActivity(intent)
             }
             else{

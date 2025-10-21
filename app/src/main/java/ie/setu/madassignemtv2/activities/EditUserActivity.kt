@@ -7,7 +7,9 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import ie.setu.madassignemtv2.R
+import ie.setu.madassignemtv2.controllers.LoginController
 import ie.setu.madassignemtv2.databinding.ActivityEditUserBinding
 import ie.setu.madassignemtv2.main.MainApp
 import ie.setu.madassignemtv2.utilities.GlobalData
@@ -20,6 +22,7 @@ class EditUserActivity: AppCompatActivity() {
     private var globalData = GlobalData
     private var utils = Utils(this)
     private lateinit var binding: ActivityEditUserBinding
+    private lateinit var loginController: LoginController
 
     override fun attachBaseContext(newBase: Context) {
         val context = LocaleHelper.setLocale(newBase, utils.getLanguage())
@@ -48,23 +51,49 @@ class EditUserActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditUserBinding.inflate(layoutInflater)
+        loginController = LoginController(this)
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbarAdd)
 
         app = application as MainApp
 
-        binding.updateUser.setOnClickListener {
-            if(binding.nameField.text.toString().isNotEmpty()){
-                globalData.loggedUserData.name = binding.nameField.text.toString()
-            }
-            if (binding.passwordField.text.toString().isNotEmpty()){
-                globalData.loggedUserData.password = binding.passwordField.text.toString()
-            }
-            utils.saveUsersToFile()
-            setResult(RESULT_OK)
-            finish()
 
+
+        binding.updateUser.setOnClickListener {
+
+
+            val newUserName = binding.nameField.text.toString()
+            val newPassword = binding.passwordField.text.toString()
+            val usernameTaken = loginController.userExists(newUserName)
+
+            Log.d("update user:", newUserName.isNotEmpty().toString())
+            Log.d("update user: ", newUserName)
+            Log.d("update user:", loginController.userExists(newUserName).toString())
+
+            if (newUserName.isNotEmpty() && !usernameTaken) {
+                val index = globalData.usersData.indexOfFirst { it.name == globalData.loggedUserData.name }
+                if (index != -1) {
+                    globalData.usersData[index].name = newUserName
+                    globalData.loggedUserData.name = newUserName
+                }
+            }
+
+            if (newPassword.isNotEmpty()) {
+                val index = globalData.usersData.indexOfFirst { it.name == globalData.loggedUserData.name }
+                if (index != -1) {
+                    globalData.usersData[index].password = newPassword
+                    globalData.loggedUserData.password = newPassword
+                }
+            }
+
+            if (!usernameTaken) {
+                utils.saveUsersToFile()
+                setResult(RESULT_OK)
+                finish()
+            } else {
+                binding.missing.text = getString(R.string.user_exist)
+            }
         }
     }
 }

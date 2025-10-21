@@ -29,6 +29,7 @@ class Utils(private val context: Context) {
     }
 
     fun loadSaveFileToList(){
+        globalData.usersData.clear()
         val file = File(context.filesDir, saveFileName)
         Log.d("file", "file")
         if (file.exists()){
@@ -60,6 +61,11 @@ class Utils(private val context: Context) {
         saveUsersToFile()
     }
 
+    fun deleteAccount(){
+        globalData.usersData.remove(globalData.loggedUserData)
+        saveUsersToFile()
+    }
+
     fun toggleDarkMode(){
         val currentMode = AppCompatDelegate.getDefaultNightMode()
         if (currentMode == AppCompatDelegate.MODE_NIGHT_YES){
@@ -82,16 +88,6 @@ class Utils(private val context: Context) {
         }
     }
 
-    fun getUserByName(userName: String): User{
-        var retUser = User()
-        for(user in globalData.usersData){
-            if (userName == user.name){
-                retUser = user
-                break
-            }
-        }
-        return retUser
-    }
     fun getDate(): String{
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
         val current = LocalDateTime.now().format(formatter)

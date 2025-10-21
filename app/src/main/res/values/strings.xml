@@ -64,4 +64,7 @@
     <string name="view">View</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="missing_login_info">User name or Password missing</string>
+    <string name="success">Success</string>
 </resources>

@@ -73,7 +73,7 @@ class EditCollectionActivity: AppCompatActivity() {
         binding.isPublicSwitch.isChecked = collection.isPublic
 
         binding.addCollectionButton.setOnClickListener {
-            if (binding.nameField.text.toString().isNotEmpty()) {
+            if (binding.nameField.text.toString().isNotEmpty() && !controller.collectionNameExists(binding.nameField.text.toString())) {
                 collection.name = binding.nameField.text.toString()
             }
             if (binding.descriptionField.text.toString().isNotEmpty()){

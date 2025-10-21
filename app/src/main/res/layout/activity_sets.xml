@@ -66,7 +66,7 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:hint="@string/set_number_hint"
-            android:inputType="text" />
+            android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -87,7 +87,7 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:hint="@string/set_piece_count"
-            android:inputType="text" />
+            android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -108,7 +108,7 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:hint="@string/set_age_range"
-            android:inputType="text" />
+            android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -129,7 +129,7 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:hint="@string/set_price"
-            android:inputType="text" />
+            android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -145,9 +145,9 @@
 
     <Switch
         android:id="@+id/isPublicSwitch"
-        android:layout_width="94dp"
-        android:layout_height="26dp"
-        android:text="Switch"
+        android:layout_width="159dp"
+        android:layout_height="24dp"
+        android:text="@string/is_public"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

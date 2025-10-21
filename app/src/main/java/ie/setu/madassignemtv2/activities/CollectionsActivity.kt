@@ -61,7 +61,7 @@ class CollectionsActivity: AppCompatActivity() {
             collection.description = binding.descriptionField.text.toString()
             collection.creationDate = utils.getDate()
             collection.isPublic = binding.isPublicSwitch.isChecked
-            if (collection.name.isNotEmpty() && collection.description.isNotEmpty()) {
+            if (collection.name.isNotEmpty() && collection.description.isNotEmpty() && !controller.collectionNameExists(collection.name)) {
                 controller.addCollection(collection)
                 Log.i("add Button Pressed", collection.toString())
                 setResult(RESULT_OK)

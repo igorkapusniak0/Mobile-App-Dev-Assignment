@@ -65,5 +65,9 @@
     <string name="view">Zobacz</string>
     <string name="edit">Edytuj</string>
     <string name="delete">Usuń</string>
+    <string name="delete_account">Usuń onto</string>
+    <string name="missing_login_info"> Imię lub Hasło brakuję</string>
+    <string name="success">Sukces</string>
+
 
 </resources>

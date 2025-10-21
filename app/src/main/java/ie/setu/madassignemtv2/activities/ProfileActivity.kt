@@ -27,7 +27,6 @@ class ProfileActivity: AppCompatActivity() {
     private val globalData = GlobalData
 
     private lateinit var binding: ActivityProfileBinding
-    private var isFirstLanguageSelection = true
 
     private val utils = Utils(this)
 
@@ -90,6 +89,13 @@ class ProfileActivity: AppCompatActivity() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+
+        binding.deleteAccount.setOnClickListener {
+            utils.deleteAccount()
+            val launcherIntent = Intent(this, LoginActivity::class.java)
+            startActivity(launcherIntent)
+            true
         }
 
         binding.bottomNavigation.setOnItemSelectedListener { item ->
