@@ -1,5 +1,6 @@
 package ie.setu.madassignemtv2.activities
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -16,12 +17,22 @@ import ie.setu.madassignemtv2.main.MainApp
 import ie.setu.madassignemtv2.models.LegoCollection
 import ie.setu.madassignemtv2.models.LegoSet
 import ie.setu.madassignemtv2.utilities.GlobalData
+import ie.setu.madassignemtv2.utilities.LocaleHelper
+import ie.setu.madassignemtv2.utilities.Utils
 
 class EditSetActivity: AppCompatActivity() {
 
     lateinit var app: MainApp
     private var controller = SetsController(this)
     private lateinit var binding: ActivitySetsBinding
+
+    private val utils = Utils(this)
+
+
+    override fun attachBaseContext(newBase: Context) {
+        val context = LocaleHelper.setLocale(newBase, utils.getLanguage())
+        super.attachBaseContext(context)
+    }
 
     override fun onCreateOptionsMenu(menu:Menu): Boolean {
         menuInflater.inflate(R.menu.menu_cancel_collection, menu)

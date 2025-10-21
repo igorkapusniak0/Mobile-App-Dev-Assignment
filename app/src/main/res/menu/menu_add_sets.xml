@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/action_search"
-        android:title="Search"
+        android:title="@string/search"
         android:icon="@android:drawable/ic_menu_search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />
@@ -12,45 +12,45 @@
     <item
         android:id="@+id/item_add"
         android:icon="@android:drawable/ic_menu_add"
-        android:title="temp"
+        android:title="@string/item_add"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/action_sort"
-        android:title="Sort"
+        android:title="@string/sort"
         android:icon="@android:drawable/ic_menu_search"
         app:showAsAction="never">
         <menu>
             <item
                 android:id="@+id/set_sort_name_asc"
-                android:title="Name (A-Z)" />
+                android:title="@string/name_sort_a_z" />
             <item
                 android:id="@+id/set_sort_name_desc"
-                android:title="Name (Z-A)" />
+                android:title="@string/name_sort_z_a" />
             <item
                 android:id="@+id/set_sort_number_asc"
-                android:title="ID (Low -> High)" />
+                android:title="@string/id_low_high" />
             <item
                 android:id="@+id/set_sort_number_desc"
-                android:title="ID (High -> Low)" />
+                android:title="@string/id_high_low" />
             <item
                 android:id="@+id/set_sort_pieceCount_asc"
-                android:title="Number of Pieces (Low - High)" />
+                android:title="@string/num_of_pieces_low_high" />
             <item
                 android:id="@+id/set_sort_pieceCount_desc"
-                android:title="Number of Pieces (High -> Low)" />
+                android:title="@string/num_of_sets_sort_high_low" />
             <item
                 android:id="@+id/set_sort_age_asc"
-                android:title="Minimum Age (Low - High)" />
+                android:title="@string/min_age_low_high" />
             <item
                 android:id="@+id/set_sort_age_desc"
-                android:title="Minimum Age (High -> Low)" />
+                android:title="@string/min_age_high_low" />
             <item
                 android:id="@+id/set_sort_price_asc"
-                android:title="Price (Low - High)" />
+                android:title="@string/price_low_high" />
             <item
-                android:id="@+id/set_sort_pieceCount_desc"
-                android:title="Price (High -> Low)" />
+                android:id="@+id/set_sort_price_desc"
+                android:title="@string/price_high_low" />
         </menu>
     </item>
 </menu>

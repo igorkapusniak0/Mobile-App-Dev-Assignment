@@ -20,6 +20,7 @@ import ie.setu.madassignemtv2.main.MainApp
 import ie.setu.madassignemtv2.models.LegoCollection
 import ie.setu.madassignemtv2.utilities.GlobalData
 import ie.setu.madassignemtv2.utilities.LocaleHelper
+import ie.setu.madassignemtv2.utilities.Utils
 
 class CollectionsListActivity: AppCompatActivity() {
     lateinit var app: MainApp
@@ -27,12 +28,13 @@ class CollectionsListActivity: AppCompatActivity() {
     private lateinit var binding: ActivityCollectionsListBinding
     private lateinit var collections: MutableList<LegoCollection>
     private lateinit var controller: CollectionsController
+    private val utils = Utils(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCollectionsListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.toolbar.title = getString(R.string.app_name)
+        binding.toolbar.title = getString(R.string.collections)
         controller = CollectionsController(this)
         setSupportActionBar(binding.toolbar)
         collections = mutableListOf()
@@ -67,7 +69,7 @@ class CollectionsListActivity: AppCompatActivity() {
     }
 
     override fun attachBaseContext(newBase: Context) {
-        val context = LocaleHelper.setLocale(newBase, "pl")
+        val context = LocaleHelper.setLocale(newBase, utils.getLanguage())
         super.attachBaseContext(context)
     }
 

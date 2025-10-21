@@ -25,13 +25,15 @@ import ie.setu.madassignemtv2.utilities.Utils
 class ProfileActivity: AppCompatActivity() {
     lateinit var app: MainApp
     private val globalData = GlobalData
-    private lateinit var utils: Utils
 
     private lateinit var binding: ActivityProfileBinding
     private var isFirstLanguageSelection = true
 
+    private val utils = Utils(this)
+
+
     override fun attachBaseContext(newBase: Context) {
-        val context = LocaleHelper.setLocale(newBase, "pl")
+        val context = LocaleHelper.setLocale(newBase, utils.getLanguage())
         super.attachBaseContext(context)
     }
 
@@ -39,12 +41,11 @@ class ProfileActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        utils = Utils(this)
-        binding.toolbar.title = title
+        binding.toolbar.title = getString(R.string.settings)
         setSupportActionBar(binding.toolbar)
         app = application as MainApp
 
-        val dropdownItems = listOf("Select Language", "eng", "pl")
+        val dropdownItems = listOf(getString(R.string.select_language), "eng", "pl")
 
 
         val spinner = binding.languageSpinner
@@ -77,20 +78,12 @@ class ProfileActivity: AppCompatActivity() {
 
         binding.languageSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                if (isFirstLanguageSelection) {
-                    isFirstLanguageSelection = false
-                    return
-                }
-
                 val language = parent.getItemAtPosition(position).toString()
                 if (language == "pl" || language == "eng") {
                     utils.setLanguage(language)
                     LocaleHelper.setLocale(this@ProfileActivity, language)
 
                     val intent = Intent(this@ProfileActivity, ProfileActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
-                            Intent.FLAG_ACTIVITY_NEW_TASK or
-                            Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                     finish()
                 }

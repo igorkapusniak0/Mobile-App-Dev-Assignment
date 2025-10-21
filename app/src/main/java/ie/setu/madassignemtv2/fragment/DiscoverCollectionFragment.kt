@@ -1,6 +1,7 @@
 package ie.setu.madassignemtv2.fragments
 
 import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -19,6 +20,8 @@ import ie.setu.madassignemtv2.controllers.DiscoverController
 import ie.setu.madassignemtv2.databinding.FragmentCollectionsBinding
 import ie.setu.madassignemtv2.databinding.FragmentSetsBinding
 import ie.setu.madassignemtv2.models.LegoCollection
+import ie.setu.madassignemtv2.utilities.LocaleHelper
+import ie.setu.madassignemtv2.utilities.Utils
 import kotlinx.serialization.builtins.TripleSerializer
 
 class CollectionsFragment : Fragment(R.layout.fragment_sets) {

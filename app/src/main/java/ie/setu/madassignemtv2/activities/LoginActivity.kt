@@ -1,30 +1,72 @@
 package ie.setu.madassignemtv2.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import ie.setu.madassignemtv2.R
 import ie.setu.madassignemtv2.controllers.LoginController
 import ie.setu.madassignemtv2.databinding.ActivityLoginBinding
 import ie.setu.madassignemtv2.main.MainApp
+import ie.setu.madassignemtv2.utilities.LocaleHelper
 import ie.setu.madassignemtv2.utilities.Utils
 
 class LoginActivity : AppCompatActivity(){
     private lateinit var binding: ActivityLoginBinding
     private var loginController = LoginController(this)
     lateinit var app: MainApp
-    private lateinit var utils: Utils
+    private val utils = Utils(this)
+
+
+    override fun attachBaseContext(newBase: Context) {
+        val context = LocaleHelper.setLocale(newBase, utils.getLanguage())
+        super.attachBaseContext(context)
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        utils = Utils(this)
 
         utils.loadSaveFileToList()
 
         app = application as MainApp
+
+        val dropdownItems = listOf(getString(R.string.select_language), "eng", "pl")
+
+
+        val spinner = binding.languageSpinner
+
+        val adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item,
+            dropdownItems
+        ).also {
+            it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        }
+
+        spinner.adapter = adapter
+
+        binding.languageSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val language = parent.getItemAtPosition(position).toString()
+                if (language == "pl" || language == "eng") {
+                    utils.setLanguage(language)
+                    LocaleHelper.setLocale(this@LoginActivity, language)
+
+                    val intent = Intent(this@LoginActivity, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
 
         binding.loginButton.setOnClickListener {
             val username = binding.usernameField.text.toString()

@@ -21,15 +21,17 @@ class EditUserActivity: AppCompatActivity() {
     private var utils = Utils(this)
     private lateinit var binding: ActivityEditUserBinding
 
+    override fun attachBaseContext(newBase: Context) {
+        val context = LocaleHelper.setLocale(newBase, utils.getLanguage())
+        super.attachBaseContext(context)
+    }
+
+
     override fun onCreateOptionsMenu(menu:Menu): Boolean {
         menuInflater.inflate(R.menu.menu_cancel_collection, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun attachBaseContext(newBase: Context) {
-        val context = LocaleHelper.setLocale(newBase, "pl")
-        super.attachBaseContext(context)
-    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

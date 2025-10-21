@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/action_search"
-        android:title="Search"
+        android:title="@string/search"
         android:icon="@android:drawable/ic_menu_search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />
@@ -13,34 +13,34 @@
     <item
         android:id="@+id/item_add"
         android:icon="@android:drawable/ic_menu_add"
-        android:title="temp"
+        android:title="@string/item_add"
         app:showAsAction="always" />
 
 
     <item
         android:id="@+id/action_sort"
-        android:title="Sort"
+        android:title="@string/sort"
         android:icon="@android:drawable/ic_menu_search"
         app:showAsAction="never">
         <menu>
             <item
                 android:id="@+id/collection_sort_name_asc"
-                android:title="Name (A-Z)" />
+                android:title="@string/name_sort_a_z" />
             <item
                 android:id="@+id/collection_sort_name_desc"
-                android:title="Name (Z-A)" />
+                android:title="@string/name_sort_z_a" />
             <item
                 android:id="@+id/collection_sort_date_asc"
-                android:title="Date (Old -> New)" />
+                android:title="@string/date_sort_old_new" />
             <item
                 android:id="@+id/collection_sort_date_desc"
-                android:title="Date (New -> Old)" />
+                android:title="@string/date_sort_new_old" />
             <item
                 android:id="@+id/collection_sort_sets_num_asc"
-                android:title="Number of Sets (Low - High)" />
+                android:title="@string/num_of_sets_sort_low_high" />
             <item
                 android:id="@+id/collection_sort_sets_num_desc"
-                android:title="Number of Sets (High -> Low)" />
+                android:title="@string/num_of_sets_sort_high_low" />
         </menu>
     </item>
 </menu>

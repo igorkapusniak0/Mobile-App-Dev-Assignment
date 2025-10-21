@@ -40,4 +40,29 @@
     <string name="incorrect_password">Password is Incorrect</string>
     <string name="user_exist">User Already Exists</string>
     <string name="lego">LEGO</string>
+    <string name="missing_collection_info">Please Enter a Title and/or Description</string>
+    <string name="select_language">Select Language</string>
+    <string name="missing_set_info">Please fill all fields with correct data</string>
+    <string name="search">Search</string>
+    <string name="item_add">Add Item</string>
+    <string name="sort">Sort</string>
+    <string name="name_sort_a_z">Name (A-Z)</string>
+    <string name="name_sort_z_a">Name (Z-A)</string>
+    <string name="date_sort_old_new">Date (Old -> New)</string>
+    <string name="date_sort_new_old">Date (New -> Old)</string>
+    <string name="num_of_sets_sort_low_high">Number of Sets (Low - High)</string>
+    <string name="num_of_sets_sort_high_low">Number of Sets (High - Low)</string>
+    <string name="id_low_high">ID (Low -> High)</string>
+    <string name="id_high_low">ID (High -> Lo)</string>
+    <string name="num_of_pieces_low_high">Number of Pieces (Low - High)</string>
+    <string name="num_of_pieces_high_low">Number of Pieces (High - Low)</string>
+    <string name="min_age_low_high">Minimum Age (Low - High)</string>
+    <string name="min_age_high_low">Minimum Age (High - Low)</string>
+    <string name="price_low_high">Price (Low - High)</string>
+    <string name="price_high_low">Price (High - Low)</string>
+    <string name="cancel">Cancel</string>
+    <string name="view">View</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+
 </resources>

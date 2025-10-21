@@ -41,4 +41,29 @@
     <string name="incorrect_password">Nieprawidłowe hasło</string>
     <string name="user_exist">Użytkownik już istnieje</string>
     <string name="lego">LEGO</string>
+    <string name="missing_collection_info">Proszę wprowadzić tytuł i/lub opis</string>
+    <string name="select_language">Wybierz język</string>
+    <string name="missing_set_info">Proszę wypełnić wszystkie pola poprawnymi danymi</string>
+    <string name="search">Szukaj</string>
+    <string name="item_add">Dodaj element</string>
+    <string name="sort">Sortuj</string>
+    <string name="name_sort_a_z">Nazwa (A-Z)</string>
+    <string name="name_sort_z_a">Nazwa (Z-A)</string>
+    <string name="date_sort_old_new">Data (od najstarszej)</string>
+    <string name="date_sort_new_old">Data (od najnowszej)</string>
+    <string name="num_of_sets_sort_low_high">Liczba zestawów (rosnąco)</string>
+    <string name="num_of_sets_sort_high_low">Liczba zestawów (malejąco)</string>
+    <string name="id_low_high">ID (rosnąco)</string>
+    <string name="id_high_low">ID (malejąco)</string>
+    <string name="num_of_pieces_low_high">Liczba elementów (rosnąco)</string>
+    <string name="num_of_pieces_high_low">Liczba elementów (malejąco)</string>
+    <string name="min_age_low_high">Minimalny wiek (rosnąco)</string>
+    <string name="min_age_high_low">Minimalny wiek (malejąco)</string>
+    <string name="price_low_high">Cena (rosnąco)</string>
+    <string name="price_high_low">Cena (malejąco)</string>
+    <string name="cancel">Anuluj</string>
+    <string name="view">Zobacz</string>
+    <string name="edit">Edytuj</string>
+    <string name="delete">Usuń</string>
+
 </resources>

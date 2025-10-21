@@ -1,5 +1,6 @@
 package ie.setu.madassignemtv2.activities
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -12,6 +13,7 @@ import ie.setu.madassignemtv2.databinding.ActivityCollectionsBinding
 import ie.setu.madassignemtv2.main.MainApp
 import ie.setu.madassignemtv2.models.LegoCollection
 import ie.setu.madassignemtv2.utilities.GlobalData
+import ie.setu.madassignemtv2.utilities.LocaleHelper
 import ie.setu.madassignemtv2.utilities.Utils
 
 class CollectionsActivity: AppCompatActivity() {
@@ -38,6 +40,12 @@ class CollectionsActivity: AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun attachBaseContext(newBase: Context) {
+        val context = LocaleHelper.setLocale(newBase, utils.getLanguage())
+        super.attachBaseContext(context)
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCollectionsBinding.inflate(layoutInflater)
@@ -60,7 +68,7 @@ class CollectionsActivity: AppCompatActivity() {
                 finish()
             }
             else {
-                Snackbar.make(it,"Please Enter a Title and/or Description", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(it,getString(R.string.missing_collection_info), Snackbar.LENGTH_LONG).show()
             }
         }
     }

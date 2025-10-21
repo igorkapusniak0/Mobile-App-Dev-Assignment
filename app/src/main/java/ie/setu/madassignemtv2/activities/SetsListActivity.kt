@@ -1,5 +1,6 @@
 package ie.setu.madassignemtv2.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +19,8 @@ import ie.setu.madassignemtv2.main.MainApp
 import ie.setu.madassignemtv2.models.LegoCollection
 import ie.setu.madassignemtv2.models.LegoSet
 import ie.setu.madassignemtv2.utilities.GlobalData
+import ie.setu.madassignemtv2.utilities.LocaleHelper
+import ie.setu.madassignemtv2.utilities.Utils
 
 class SetsListActivity: AppCompatActivity() {
     lateinit var app: MainApp
@@ -26,11 +29,18 @@ class SetsListActivity: AppCompatActivity() {
     private lateinit var sets: MutableList<LegoSet>
     private lateinit var binding: ActivitySetsListBinding
 
+    private val utils = Utils(this)
+
+    override fun attachBaseContext(newBase: Context) {
+        val context = LocaleHelper.setLocale(newBase, utils.getLanguage())
+        super.attachBaseContext(context)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySetsListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.toolbar.title = title
+        binding.toolbar.title = getString(R.string.sets)
         setSupportActionBar(binding.toolbar)
         sets = mutableListOf()
         sets = getCollection()

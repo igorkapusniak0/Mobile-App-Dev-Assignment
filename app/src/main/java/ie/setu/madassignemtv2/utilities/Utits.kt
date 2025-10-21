@@ -52,6 +52,9 @@ class Utils(private val context: Context) {
         return retVal
     }
 
+    fun getLanguage(): String{
+        return globalData.loggedUserData.language
+    }
     fun setLanguage(language: String){
         globalData.loggedUserData.language = language
         saveUsersToFile()

@@ -2,7 +2,6 @@ package ie.setu.madassignemtv2.main
 
 import android.app.Application
 import android.util.Log
-import ie.setu.madassignemtv2.models.User
 
 
 class MainApp : Application() {
