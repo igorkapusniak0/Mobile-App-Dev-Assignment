@@ -44,6 +44,13 @@ class DiscoverActivity: AppCompatActivity() {
         binding.toolbar.title = getString(R.string.discover)
         setSupportActionBar(binding.toolbar)
 
+        if (!globalData.loggedUserData.darkMode){
+            binding.toolbar.setTitleTextColor(getColor(R.color.black))
+        }
+        else{
+            binding.toolbar.setTitleTextColor(getColor(R.color.white))
+        }
+
         app = application as MainApp
 
         viewPager2 = binding.viewPager

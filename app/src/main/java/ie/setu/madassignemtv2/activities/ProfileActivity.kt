@@ -44,6 +44,13 @@ class ProfileActivity: AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         app = application as MainApp
 
+        if (!globalData.loggedUserData.darkMode){
+            binding.toolbar.setTitleTextColor(getColor(R.color.black))
+        }
+        else{
+            binding.toolbar.setTitleTextColor(getColor(R.color.white))
+        }
+
         val dropdownItems = listOf(getString(R.string.select_language), "eng", "pl")
 
 

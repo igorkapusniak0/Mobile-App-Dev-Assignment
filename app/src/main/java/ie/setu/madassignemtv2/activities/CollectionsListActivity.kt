@@ -3,6 +3,7 @@ package ie.setu.madassignemtv2.activities
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -31,6 +32,7 @@ class CollectionsListActivity: AppCompatActivity() {
     private val utils = Utils(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        utils.setDarkMode()
         super.onCreate(savedInstanceState)
         binding = ActivityCollectionsListBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -79,6 +81,12 @@ class CollectionsListActivity: AppCompatActivity() {
         val searchItem = menu.findItem(R.id.action_search)
         val searchView = searchItem.actionView as SearchView
 
+        if (!globalData.loggedUserData.darkMode){
+            binding.toolbar.setTitleTextColor(getColor(R.color.black))
+        }
+        else{
+            binding.toolbar.setTitleTextColor(getColor(R.color.white))
+        }
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 val input = query ?: ""
@@ -104,7 +112,7 @@ class CollectionsListActivity: AppCompatActivity() {
                 val launcherIntent = Intent(this, CollectionsActivity::class.java)
                 getResult.launch(launcherIntent)
             }
-            R.id.set_sort_name_asc -> {
+            R.id.collection_sort_name_asc -> {
                 collections.sortBy { it.name }
                 binding.recyclerView.adapter?.notifyDataSetChanged()
             }

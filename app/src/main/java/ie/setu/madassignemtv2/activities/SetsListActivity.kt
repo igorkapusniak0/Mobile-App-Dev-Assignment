@@ -79,6 +79,13 @@ class SetsListActivity: AppCompatActivity() {
         val searchItem = menu.findItem(R.id.action_search)
         val searchView = searchItem.actionView as SearchView
 
+        if (!globalData.loggedUserData.darkMode){
+            binding.toolbar.setTitleTextColor(getColor(R.color.black))
+        }
+        else{
+            binding.toolbar.setTitleTextColor(getColor(R.color.white))
+        }
+
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 val input = query ?: ""
@@ -108,7 +115,7 @@ class SetsListActivity: AppCompatActivity() {
                 sets.sortBy { it.name }
                 binding.recyclerView.adapter?.notifyDataSetChanged()
             }
-            R.id.collection_sort_name_desc -> {
+            R.id.set_sort_name_desc -> {
                 sets.sortByDescending { it.name }
                 binding.recyclerView.adapter?.notifyDataSetChanged()
             }
@@ -140,7 +147,7 @@ class SetsListActivity: AppCompatActivity() {
                 sets.sortBy { it.price }
                 binding.recyclerView.adapter?.notifyDataSetChanged()
             }
-            R.id.set_sort_price_asc -> {
+            R.id.set_sort_price_desc -> {
                 sets.sortByDescending { it.price }
                 binding.recyclerView.adapter?.notifyDataSetChanged()
             }

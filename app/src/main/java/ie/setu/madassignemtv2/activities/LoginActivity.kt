@@ -80,7 +80,6 @@ class LoginActivity : AppCompatActivity(){
                 when (loginResponse) {
                     1 -> {
                         val intent = Intent(this@LoginActivity, CollectionsListActivity::class.java)
-                        utils.setDarkMode()
                         startActivity(intent)
                     }
                     0 -> {
