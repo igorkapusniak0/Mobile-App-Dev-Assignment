@@ -1,0 +1,302 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > SetsController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">ie.setu.madassignemtv2.controllers</a>
+</div>
+
+<h1>Coverage Summary for Class: SetsController (ie.setu.madassignemtv2.controllers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SetsController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/19)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/48)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/85)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package ie.setu.madassignemtv2.controllers
+&nbsp;
+&nbsp;import android.content.Context
+&nbsp;import android.content.Intent
+&nbsp;import android.util.Log
+&nbsp;import android.view.LayoutInflater
+&nbsp;import android.widget.TextView
+&nbsp;import android.widget.Toast
+&nbsp;import androidx.recyclerview.widget.RecyclerView
+&nbsp;import com.google.android.material.bottomsheet.BottomSheetDialog
+&nbsp;import ie.setu.madassignemtv2.R
+&nbsp;import ie.setu.madassignemtv2.activities.EditSetActivity
+&nbsp;import ie.setu.madassignemtv2.activities.SetActivity
+&nbsp;import ie.setu.madassignemtv2.activities.SetsListActivity
+&nbsp;import ie.setu.madassignemtv2.models.LegoCollection
+&nbsp;import ie.setu.madassignemtv2.models.LegoSet
+&nbsp;import ie.setu.madassignemtv2.utilities.GlobalData
+&nbsp;import ie.setu.madassignemtv2.utilities.Utils
+&nbsp;
+<b class="nc">&nbsp;class SetsController(context: Context) {</b>
+<b class="nc">&nbsp;    private var globalData = GlobalData</b>
+<b class="nc">&nbsp;    private val utils = Utils(context)</b>
+&nbsp;
+&nbsp;    fun getUserSets(): MutableList&lt;LegoSet&gt;{
+<b class="nc">&nbsp;        val userSets = mutableListOf&lt;LegoSet&gt;()</b>
+<b class="nc">&nbsp;        for (collection in globalData.loggedUserData.collections){</b>
+<b class="nc">&nbsp;            for (set in collection.sets){</b>
+<b class="nc">&nbsp;                userSets.add(set)</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return userSets</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    fun addSet(set: LegoSet, collection: LegoCollection){
+<b class="nc">&nbsp;        collection.sets.add(set)</b>
+<b class="nc">&nbsp;        globalData.loggedUserData.sets.add(set)</b>
+<b class="nc">&nbsp;        utils.saveUsersToFile()</b>
+<b class="nc">&nbsp;        Log.d(&quot;user sets&quot;, collection.sets.toString())</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    fun removeSet(set: LegoSet, collection: LegoCollection){
+<b class="nc">&nbsp;        collection.sets.remove(set)</b>
+<b class="nc">&nbsp;        utils.saveUsersToFile()</b>
+<b class="nc">&nbsp;        Log.d(&quot;user sets&quot;, collection.sets.toString())</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    fun moveSet(set: LegoSet, newCollection: LegoCollection, formerCollection: LegoCollection){
+<b class="nc">&nbsp;        newCollection.sets.add(set)</b>
+<b class="nc">&nbsp;        formerCollection.sets.remove(set)</b>
+<b class="nc">&nbsp;        utils.saveUsersToFile()</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    fun getCollectionFromName(name: String): LegoCollection {
+<b class="nc">&nbsp;        var collection = LegoCollection()</b>
+<b class="nc">&nbsp;        for(col in globalData.loggedUserData.collections){</b>
+<b class="nc">&nbsp;            if(col.name == name){</b>
+<b class="nc">&nbsp;                collection = col</b>
+&nbsp;                break
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return collection</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    fun getPublicCollectionFromName(name: String): LegoCollection {
+<b class="nc">&nbsp;        var collection = LegoCollection()</b>
+<b class="nc">&nbsp;        for(user in globalData.usersData){</b>
+<b class="nc">&nbsp;            for (col in user.collections){</b>
+<b class="nc">&nbsp;                if(col.name == name){</b>
+<b class="nc">&nbsp;                    collection = col</b>
+&nbsp;                    break
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return collection</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    fun setNameExists(name: String): Boolean {
+<b class="nc">&nbsp;        return globalData.loggedUserData.sets.indexOfFirst { it.name == name } != -1</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    fun setIDExists(id: Int): Boolean {
+<b class="nc">&nbsp;        return globalData.loggedUserData.sets.indexOfFirst { it.setNumber == id } != -1</b>
+&nbsp;    }
+&nbsp;    fun getSetFromName(name: String): LegoSet {
+<b class="nc">&nbsp;        var legoSet = LegoSet()</b>
+<b class="nc">&nbsp;        for(set in globalData.loggedUserData.sets){</b>
+<b class="nc">&nbsp;            if(set.name == name){</b>
+<b class="nc">&nbsp;                legoSet = set</b>
+&nbsp;                break
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return legoSet</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    fun getPublicSetFromName(name: String): LegoSet {
+<b class="nc">&nbsp;        var legoSet = LegoSet()</b>
+<b class="nc">&nbsp;        for (user in globalData.usersData){</b>
+<b class="nc">&nbsp;            for(set in user.sets){</b>
+<b class="nc">&nbsp;                if(set.name == name){</b>
+<b class="nc">&nbsp;                    legoSet = set</b>
+&nbsp;                    break
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return legoSet</b>
+&nbsp;    }
+&nbsp;    fun listCollectionNames(): List&lt;String&gt;{
+<b class="nc">&nbsp;        val collectionNames = mutableListOf&lt;String&gt;()</b>
+<b class="nc">&nbsp;        for (collection in globalData.loggedUserData.collections) {</b>
+<b class="nc">&nbsp;            collectionNames.add(collection.name)</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return collectionNames</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    fun findCollectionFromSet(legoSet: LegoSet): LegoCollection{
+<b class="nc">&nbsp;        var legoCollection = LegoCollection()</b>
+<b class="nc">&nbsp;        for (collection in globalData.loggedUserData.collections){</b>
+<b class="nc">&nbsp;            for (set in collection.sets){</b>
+<b class="nc">&nbsp;                if (set == legoSet){</b>
+<b class="nc">&nbsp;                    legoCollection = collection</b>
+&nbsp;                    break
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return legoCollection</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    fun removeSet(set: LegoSet){
+<b class="nc">&nbsp;        val collection = findCollectionFromSet(set)</b>
+<b class="nc">&nbsp;        collection.sets.remove(set)</b>
+<b class="nc">&nbsp;        globalData.loggedUserData.sets.remove(set)</b>
+<b class="nc">&nbsp;        utils.saveUsersToFile()</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    fun showBottomSheet(context: Context, set: LegoSet, recyclerView: RecyclerView, onEditClicked: (LegoSet) -&gt; Unit) {
+<b class="nc">&nbsp;        val bottomSheetDialog = BottomSheetDialog(context)</b>
+<b class="nc">&nbsp;        val view = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_menu, null)</b>
+<b class="nc">&nbsp;        bottomSheetDialog.setContentView(view)</b>
+<b class="nc">&nbsp;        bottomSheetDialog.show()</b>
+&nbsp;
+<b class="nc">&nbsp;        view.findViewById&lt;TextView&gt;(R.id.delete_option).setOnClickListener {</b>
+<b class="nc">&nbsp;            removeSet(set)</b>
+<b class="nc">&nbsp;            recyclerView.adapter?.notifyDataSetChanged()</b>
+<b class="nc">&nbsp;            Toast.makeText(context, &quot;Set Removed&quot;, Toast.LENGTH_SHORT).show()</b>
+<b class="nc">&nbsp;            bottomSheetDialog.dismiss()</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        view.findViewById&lt;TextView&gt;(R.id.edit_option).setOnClickListener {</b>
+<b class="nc">&nbsp;            Toast.makeText(context, &quot;Editing Collection&quot;, Toast.LENGTH_SHORT).show()</b>
+<b class="nc">&nbsp;            onEditClicked(set)</b>
+<b class="nc">&nbsp;            bottomSheetDialog.dismiss()</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        view.findViewById&lt;TextView&gt;(R.id.view_option).setOnClickListener {</b>
+<b class="nc">&nbsp;            Toast.makeText(context, &quot;Viewing Collection&quot;, Toast.LENGTH_SHORT).show()</b>
+<b class="nc">&nbsp;            val intent = Intent(context, SetActivity::class.java)</b>
+<b class="nc">&nbsp;            intent.putExtra(&quot;set_name&quot;, set.name)</b>
+<b class="nc">&nbsp;            context.startActivity(intent)</b>
+<b class="nc">&nbsp;            recyclerView.adapter?.notifyDataSetChanged()</b>
+<b class="nc">&nbsp;            bottomSheetDialog.dismiss()</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    fun filterSets(filter: String, sets: List&lt;LegoSet&gt;) : MutableList&lt;LegoSet&gt;{
+<b class="nc">&nbsp;        Log.d(&quot;pre filter: &quot;, sets.toString())</b>
+<b class="nc">&nbsp;        val filteredSets = mutableListOf&lt;LegoSet&gt;()</b>
+<b class="nc">&nbsp;        Log.d(&quot;is Empty?: &quot;, filter.isEmpty().toString())</b>
+<b class="nc">&nbsp;        if (filter.isEmpty()){</b>
+<b class="nc">&nbsp;            filteredSets.addAll(sets)</b>
+&nbsp;        }
+&nbsp;        else{
+<b class="nc">&nbsp;            for (set in sets){</b>
+<b class="nc">&nbsp;                if (set.toString().contains(filter, ignoreCase = true)){</b>
+<b class="nc">&nbsp;                    filteredSets.add(set)</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return filteredSets</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-10-23 14:40</div>
+</div>
+</body>
+</html>

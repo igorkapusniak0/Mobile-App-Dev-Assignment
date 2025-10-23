@@ -33,10 +33,12 @@ data class User(
             _language = value
         }
 
-
-    fun numberOfCollections(): Int = collections.size
-
     override fun toString(): String {
-        return "Name: $name, Password: $password, Collections: $collections"
+        return name + ", " +
+                password + ", " +
+                language + ", " +
+                darkMode.toString() + ", " +
+                collections.toString() + ", " +
+                sets.toString() + ", "
     }
 }

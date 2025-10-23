@@ -1,6 +1,5 @@
 package ie.setu.madassignemtv2.models
 
-import ie.setu.madassignemtv2.utilities.Utils
 import kotlinx.serialization.Serializable
 
 @Serializable

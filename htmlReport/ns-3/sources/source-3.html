@@ -1,0 +1,183 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > LoginController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">ie.setu.madassignemtv2.controllers</a>
+</div>
+
+<h1>Coverage Summary for Class: LoginController (ie.setu.madassignemtv2.controllers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LoginController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/32)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package ie.setu.madassignemtv2.controllers
+&nbsp;
+&nbsp;import android.content.Context
+&nbsp;import android.util.Log
+&nbsp;import ie.setu.madassignemtv2.models.User
+&nbsp;import ie.setu.madassignemtv2.utilities.GlobalData
+&nbsp;import ie.setu.madassignemtv2.utilities.Utils
+&nbsp;import java.io.File
+&nbsp;
+<b class="nc">&nbsp;class LoginController(context: Context) {</b>
+<b class="nc">&nbsp;    private var globalData = GlobalData</b>
+&nbsp;    private lateinit var user: User
+<b class="nc">&nbsp;    private val utils = Utils(context)</b>
+&nbsp;
+&nbsp;    fun loginUser(username: String, password: String): Int{
+<b class="nc">&nbsp;        var loginSuccessful = 0</b>
+<b class="nc">&nbsp;        for (user in globalData.usersData){</b>
+<b class="nc">&nbsp;            if (userExists(username)){</b>
+<b class="nc">&nbsp;                if (password == user.password){</b>
+<b class="nc">&nbsp;                    Log.d(&quot;Login&quot;, &quot;successful&quot;)</b>
+<b class="nc">&nbsp;                    loginSuccessful = 1</b>
+<b class="nc">&nbsp;                    globalData.loggedUserData = user</b>
+&nbsp;                    break
+&nbsp;                }
+&nbsp;                else{
+<b class="nc">&nbsp;                    loginSuccessful = 2</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return loginSuccessful</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    fun userExists(username: String) : Boolean{
+<b class="nc">&nbsp;        var userExists = false</b>
+<b class="nc">&nbsp;        for (user in globalData.usersData){</b>
+<b class="nc">&nbsp;            if (username.lowercase() == user.name.lowercase()){</b>
+<b class="nc">&nbsp;                userExists = true</b>
+&nbsp;                break
+&nbsp;            }
+&nbsp;
+&nbsp;        }
+<b class="nc">&nbsp;        return userExists</b>
+&nbsp;    }
+&nbsp;    fun registerUser(context: Context, username : String, password: String): Boolean{
+<b class="nc">&nbsp;        var registerSuccessful = false</b>
+<b class="nc">&nbsp;        val file = File(context.filesDir,utils.saveFileName)</b>
+<b class="nc">&nbsp;        if (!file.exists()) {</b>
+<b class="nc">&nbsp;            file.createNewFile()</b>
+<b class="nc">&nbsp;            file.writeText(&quot;&quot;)</b>
+<b class="nc">&nbsp;            Log.d(&quot;SaveFile&quot;, &quot;File created at ${file.absolutePath}&quot;)</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (!userExists(username)){</b>
+<b class="nc">&nbsp;            user = User()</b>
+<b class="nc">&nbsp;            user.name = username</b>
+<b class="nc">&nbsp;            user.password = password</b>
+&nbsp;
+<b class="nc">&nbsp;            registerSuccessful = true</b>
+<b class="nc">&nbsp;            globalData.usersData.add(user)</b>
+<b class="nc">&nbsp;            globalData.loggedUserData = user</b>
+<b class="nc">&nbsp;            utils.saveUsersToFile()</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return registerSuccessful</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-10-23 14:40</div>
+</div>
+</body>
+</html>

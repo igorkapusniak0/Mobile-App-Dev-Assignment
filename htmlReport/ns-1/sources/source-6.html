@@ -1,0 +1,223 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > EditUserActivity</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">ie.setu.madassignemtv2.activities</a>
+</div>
+
+<h1>Coverage Summary for Class: EditUserActivity (ie.setu.madassignemtv2.activities)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">EditUserActivity</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/22)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/47)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package ie.setu.madassignemtv2.activities
+&nbsp;
+&nbsp;
+&nbsp;import android.content.Context
+&nbsp;import android.os.Bundle
+&nbsp;import android.util.Log
+&nbsp;import android.view.Menu
+&nbsp;import android.view.MenuItem
+&nbsp;import androidx.appcompat.app.AppCompatActivity
+&nbsp;import com.google.android.material.snackbar.Snackbar
+&nbsp;import ie.setu.madassignemtv2.R
+&nbsp;import ie.setu.madassignemtv2.controllers.LoginController
+&nbsp;import ie.setu.madassignemtv2.databinding.ActivityEditUserBinding
+&nbsp;import ie.setu.madassignemtv2.main.MainApp
+&nbsp;import ie.setu.madassignemtv2.utilities.GlobalData
+&nbsp;import ie.setu.madassignemtv2.utilities.LocaleHelper
+&nbsp;import ie.setu.madassignemtv2.utilities.Utils
+&nbsp;
+<b class="nc">&nbsp;class EditUserActivity: AppCompatActivity() {</b>
+&nbsp;
+<b class="nc">&nbsp;    lateinit var app: MainApp</b>
+<b class="nc">&nbsp;    private var globalData = GlobalData</b>
+<b class="nc">&nbsp;    private var utils = Utils(this)</b>
+&nbsp;    private lateinit var binding: ActivityEditUserBinding
+&nbsp;    private lateinit var loginController: LoginController
+&nbsp;
+&nbsp;    override fun attachBaseContext(newBase: Context) {
+<b class="nc">&nbsp;        val context = LocaleHelper.setLocale(newBase, utils.getLanguage())</b>
+<b class="nc">&nbsp;        super.attachBaseContext(context)</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    override fun onCreateOptionsMenu(menu:Menu): Boolean {
+<b class="nc">&nbsp;        menuInflater.inflate(R.menu.menu_cancel_collection, menu)</b>
+<b class="nc">&nbsp;        return super.onCreateOptionsMenu(menu)</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+<b class="nc">&nbsp;        when (item.itemId) {</b>
+<b class="nc">&nbsp;            R.id.item_cancel -&gt; {</b>
+<b class="nc">&nbsp;                Log.i(&quot;Cancel Button Pressed&quot;,&quot;&quot;)</b>
+<b class="nc">&nbsp;                setResult(RESULT_CANCELED)</b>
+<b class="nc">&nbsp;                finish()</b>
+<b class="nc">&nbsp;                return true</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return super.onOptionsItemSelected(item)</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    override fun onCreate(savedInstanceState: Bundle?) {
+<b class="nc">&nbsp;        super.onCreate(savedInstanceState)</b>
+<b class="nc">&nbsp;        binding = ActivityEditUserBinding.inflate(layoutInflater)</b>
+<b class="nc">&nbsp;        loginController = LoginController(this)</b>
+<b class="nc">&nbsp;        setContentView(binding.root)</b>
+&nbsp;
+<b class="nc">&nbsp;        setSupportActionBar(binding.toolbarAdd)</b>
+&nbsp;
+<b class="nc">&nbsp;        app = application as MainApp</b>
+&nbsp;
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        binding.updateUser.setOnClickListener {</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;            val newUserName = binding.nameField.text.toString()</b>
+<b class="nc">&nbsp;            val newPassword = binding.passwordField.text.toString()</b>
+<b class="nc">&nbsp;            val usernameTaken = loginController.userExists(newUserName)</b>
+&nbsp;
+<b class="nc">&nbsp;            Log.d(&quot;update user:&quot;, newUserName.isNotEmpty().toString())</b>
+<b class="nc">&nbsp;            Log.d(&quot;update user: &quot;, newUserName)</b>
+<b class="nc">&nbsp;            Log.d(&quot;update user:&quot;, loginController.userExists(newUserName).toString())</b>
+&nbsp;
+<b class="nc">&nbsp;            var pass = true</b>
+&nbsp;
+<b class="nc">&nbsp;            if (newUserName.length &lt;= 20 &amp;&amp; newUserName.length &gt;= 2 &amp;&amp; !usernameTaken) {</b>
+<b class="nc">&nbsp;                val index = globalData.usersData.indexOfFirst { it.name == globalData.loggedUserData.name }</b>
+<b class="nc">&nbsp;                if (index != -1) {</b>
+<b class="nc">&nbsp;                    globalData.usersData[index].name = newUserName</b>
+<b class="nc">&nbsp;                    globalData.loggedUserData.name = newUserName</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;            else {
+<b class="nc">&nbsp;                pass = false</b>
+<b class="nc">&nbsp;                binding.missing.text = getString(R.string.user_name_length)</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            if (newPassword.length &lt;= 30 &amp;&amp; newPassword.length &gt;= 5) {</b>
+<b class="nc">&nbsp;                val index = globalData.usersData.indexOfFirst { it.name == globalData.loggedUserData.name }</b>
+<b class="nc">&nbsp;                if (index != -1) {</b>
+<b class="nc">&nbsp;                    globalData.usersData[index].password = newPassword</b>
+<b class="nc">&nbsp;                    globalData.loggedUserData.password = newPassword</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;            else {
+<b class="nc">&nbsp;                pass = false</b>
+<b class="nc">&nbsp;                binding.missing.text = getString(R.string.user_password_length)</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            if (!usernameTaken &amp;&amp; pass) {</b>
+<b class="nc">&nbsp;                utils.saveUsersToFile()</b>
+<b class="nc">&nbsp;                setResult(RESULT_OK)</b>
+<b class="nc">&nbsp;                finish()</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-10-23 14:40</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,192 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > CollectionsFragment</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">ie.setu.madassignemtv2.fragments</a>
+</div>
+
+<h1>Coverage Summary for Class: CollectionsFragment (ie.setu.madassignemtv2.fragments)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CollectionsFragment</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/24)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package ie.setu.madassignemtv2.fragments
+&nbsp;
+&nbsp;import android.app.Activity.RESULT_OK
+&nbsp;import android.content.Context
+&nbsp;import android.content.Intent
+&nbsp;import android.os.Bundle
+&nbsp;import android.util.Log
+&nbsp;import android.view.LayoutInflater
+&nbsp;import android.view.View
+&nbsp;import android.view.ViewGroup
+&nbsp;import androidx.activity.result.contract.ActivityResultContracts
+&nbsp;import androidx.fragment.app.Fragment
+&nbsp;import androidx.recyclerview.widget.LinearLayoutManager
+&nbsp;import ie.setu.madassignemtv2.R
+&nbsp;import ie.setu.madassignemtv2.activities.EditCollectionActivity
+&nbsp;import ie.setu.madassignemtv2.activities.SetsListActivity
+&nbsp;import ie.setu.madassignemtv2.adapters.CollectionsAdapter
+&nbsp;import ie.setu.madassignemtv2.adapters.SetsAdapter
+&nbsp;import ie.setu.madassignemtv2.controllers.DiscoverController
+&nbsp;import ie.setu.madassignemtv2.databinding.FragmentCollectionsBinding
+&nbsp;import ie.setu.madassignemtv2.databinding.FragmentSetsBinding
+&nbsp;import ie.setu.madassignemtv2.models.LegoCollection
+&nbsp;import ie.setu.madassignemtv2.utilities.LocaleHelper
+&nbsp;import ie.setu.madassignemtv2.utilities.Utils
+&nbsp;import kotlinx.serialization.builtins.TripleSerializer
+&nbsp;
+<b class="nc">&nbsp;class CollectionsFragment : Fragment(R.layout.fragment_sets) {</b>
+&nbsp;    private var _binding: FragmentSetsBinding? = null
+<b class="nc">&nbsp;    private val binding get() = _binding!!</b>
+&nbsp;
+&nbsp;    private lateinit var controller: DiscoverController
+&nbsp;    private lateinit var setsAdapter: CollectionsAdapter
+&nbsp;
+&nbsp;    override fun onCreate(savedInstanceState: Bundle?) {
+<b class="nc">&nbsp;        super.onCreate(savedInstanceState)</b>
+<b class="nc">&nbsp;        controller = DiscoverController(requireContext())</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+<b class="nc">&nbsp;        super.onViewCreated(view, savedInstanceState)</b>
+&nbsp;
+<b class="nc">&nbsp;        _binding = FragmentSetsBinding.bind(view)</b>
+<b class="nc">&nbsp;        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())</b>
+&nbsp;
+<b class="nc">&nbsp;        val collections = controller.getAllPublicCollections()</b>
+<b class="nc">&nbsp;        Log.d(&quot;sts&quot;, collections.toString())</b>
+<b class="nc">&nbsp;        setsAdapter = CollectionsAdapter(collections, this::onCollectionSelected, binding.recyclerView, this::onEditCollectionClicked)</b>
+<b class="nc">&nbsp;        binding.recyclerView.adapter = setsAdapter</b>
+<b class="nc">&nbsp;        setsAdapter.notifyDataSetChanged()</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    override fun onDestroyView() {
+<b class="nc">&nbsp;        super.onDestroyView()</b>
+<b class="nc">&nbsp;        _binding = null</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private fun onCollectionSelected(collection: LegoCollection) {
+<b class="nc">&nbsp;        val intent = Intent(binding.root.context, SetsListActivity::class.java)</b>
+<b class="nc">&nbsp;        intent.putExtra(&quot;collection_name&quot;, collection.name)</b>
+<b class="nc">&nbsp;        intent.putExtra(&quot;public&quot;, &quot;public&quot;)</b>
+<b class="nc">&nbsp;        startActivity(intent)</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    private val editResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {</b>
+<b class="nc">&nbsp;        if (it.resultCode == RESULT_OK) {</b>
+<b class="nc">&nbsp;            binding.recyclerView.adapter?.notifyDataSetChanged()</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private fun onEditCollectionClicked(collection: LegoCollection) {
+<b class="nc">&nbsp;        val intent = Intent(context, EditCollectionActivity::class.java)</b>
+<b class="nc">&nbsp;        intent.putExtra(&quot;collection_name&quot;, collection.name)</b>
+<b class="nc">&nbsp;        editResultLauncher.launch(intent)</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-10-23 14:40</div>
+</div>
+</body>
+</html>

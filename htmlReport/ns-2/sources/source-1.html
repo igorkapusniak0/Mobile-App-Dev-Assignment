@@ -1,0 +1,191 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > CollectionsAdapter</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">ie.setu.madassignemtv2.adapters</a>
+</div>
+
+<h1>Coverage Summary for Class: CollectionsAdapter (ie.setu.madassignemtv2.adapters)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CollectionsAdapter</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/12)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">CollectionsAdapter$MainHolder</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/22)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package ie.setu.madassignemtv2.adapters
+&nbsp;
+&nbsp;import android.app.Activity.RESULT_OK
+&nbsp;import android.content.Intent
+&nbsp;import android.view.LayoutInflater
+&nbsp;import android.view.ViewGroup
+&nbsp;import android.widget.Toast
+&nbsp;import androidx.activity.result.contract.ActivityResultContracts
+&nbsp;import androidx.core.content.ContentProviderCompat.requireContext
+&nbsp;import androidx.recyclerview.widget.RecyclerView
+&nbsp;import ie.setu.madassignemtv2.controllers.CollectionsController
+&nbsp;import ie.setu.madassignemtv2.databinding.CardCollectionBinding
+&nbsp;import ie.setu.madassignemtv2.models.LegoCollection
+&nbsp;import kotlin.math.max
+&nbsp;
+<b class="nc">&nbsp;class CollectionsAdapter(private var collections: MutableList&lt;LegoCollection&gt;,</b>
+<b class="nc">&nbsp;                         private val onCollectionClick: (LegoCollection) -&gt; Unit,</b>
+&nbsp;                         recyclerView: RecyclerView,
+<b class="nc">&nbsp;                         private val onEditClicked: (LegoCollection) -&gt; Unit) : RecyclerView.Adapter&lt;CollectionsAdapter.MainHolder&gt;() {</b>
+<b class="nc">&nbsp;    private val view = recyclerView</b>
+&nbsp;    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
+<b class="nc">&nbsp;        val binding = CardCollectionBinding.inflate(LayoutInflater.from(parent.context), parent, false)</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        return MainHolder(binding)</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    override fun onBindViewHolder(holder: MainHolder, position: Int) {
+<b class="nc">&nbsp;        val collection = collections[holder.adapterPosition]</b>
+<b class="nc">&nbsp;        holder.bind(collection, onCollectionClick, view, onEditClicked)</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    fun updateList(newCollections: List&lt;LegoCollection&gt;) {
+<b class="nc">&nbsp;        collections.clear()</b>
+<b class="nc">&nbsp;        collections.addAll(newCollections)</b>
+<b class="nc">&nbsp;        notifyDataSetChanged()</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    override fun getItemCount(): Int = collections.size</b>
+&nbsp;
+<b class="nc">&nbsp;    class MainHolder(private val binding: CardCollectionBinding) : RecyclerView.ViewHolder(binding.root) {</b>
+&nbsp;        fun bind(collection: LegoCollection, onClick: (LegoCollection) -&gt; Unit, recyclerView: RecyclerView, onEditClicked: (LegoCollection) -&gt; Unit) {
+<b class="nc">&nbsp;            val collectionsController = CollectionsController(binding.root.context)</b>
+&nbsp;
+<b class="nc">&nbsp;            binding.titleText.text = collection.name</b>
+<b class="nc">&nbsp;            binding.descriptionText.text = collection.description</b>
+<b class="nc">&nbsp;            binding.dateText.text = collection.creationDate</b>
+<b class="nc">&nbsp;            binding.numberOfSetsText.text = collection.numberOfSets().toString()</b>
+&nbsp;
+<b class="nc">&nbsp;            binding.root.setOnClickListener {</b>
+<b class="nc">&nbsp;                onClick(collection)</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            binding.imageButton.setOnClickListener {</b>
+<b class="nc">&nbsp;                collectionsController.showBottomSheet(binding.root.context, collection, recyclerView, onEditClicked)</b>
+&nbsp;            }
+&nbsp;
+&nbsp;        }
+&nbsp;
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-10-23 14:40</div>
+</div>
+</body>
+</html>
