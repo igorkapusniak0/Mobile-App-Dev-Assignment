@@ -66,6 +66,7 @@ class DiscoverActivity: AppCompatActivity() {
             }
         }.attach()
 
+        binding.bottomNavigation.selectedItemId = R.id.nav_discover
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_Sets -> {

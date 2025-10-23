@@ -71,7 +71,7 @@ class SetActivity: AppCompatActivity() {
         binding.nameText.text = set.name
         binding.numberText.text = set.setNumber.toString()
         binding.pieceCountText.text = set.pieceCount.toString()
-        binding.ageText.text = set.ageRange.toString()
+        binding.ageText.text = set.age.toString()
         binding.priceText.text = set.price.toString()
 
         }

@@ -94,24 +94,50 @@ class EditSetActivity: AppCompatActivity() {
         Log.d("index of spinner :", collectionIndex(set.collectionName,dropdownItems).toString())
         Log.d("collection Name", set.collectionName)
 
+        val name = binding.nameField.text.toString()
+        val setNumber = binding.setNumberField.text.toString().toInt()
+        val pieceCount = binding.pieceCountField.text.toString().toInt()
+        val price = binding.priceField.text.toString().toFloat()
+        val age = binding.ageRangeField.text.toString().toInt()
+        val isPublic = binding.isPublicSwitch.isChecked
+        val collectionName = binding.collectionSpinner.selectedItem.toString()
+
         binding.addSetButton.setOnClickListener {
-            if(binding.nameField.text.toString().isNotEmpty() && !controller.setNameExists(binding.nameField.text.toString())){
-                set.name = binding.nameField.text.toString()
+            if((name.length <= 20 && name.length >= 5) && !controller.setNameExists(name)){
+                set.name = name
             }
-            if (binding.setNumberField.text.toString().isNotEmpty() && !controller.setIDExists(binding.setNumberField.text.toString().toInt())){
-                set.setNumber = binding.setNumberField.text.toString().toInt()
+            else{
+                Snackbar.make(it,getString(R.string.set_name_length), Snackbar.LENGTH_LONG).show()
             }
-            if (binding.pieceCountField.text.toString().isNotEmpty()){
-                set.pieceCount = binding.pieceCountField.text.toString().toInt()
+            if ((setNumber >= 1 && setNumber <= 9999999) && !controller.setIDExists(setNumber)){
+                set.setNumber = setNumber
             }
-            if (binding.priceField.text.toString().isNotEmpty()){
-                set.price = binding.priceField.text.toString().toFloat()
+            else{
+                Snackbar.make(it,getString(R.string.set_number_limit), Snackbar.LENGTH_LONG).show()
+            }
+            if (pieceCount >= 50 && pieceCount <= 999999){
+                set.pieceCount = pieceCount
+            }
+            else{
+                Snackbar.make(it,getString(R.string.set_piece_count_limit), Snackbar.LENGTH_LONG).show()
+            }
+            if (price >= 1 && price <= 99999){
+                set.price = price
+            }
+            else{
+                Snackbar.make(it,getString(R.string.set_price_limit), Snackbar.LENGTH_LONG).show()
+            }
+            if (age >= 3 && age <= 18){
+                set.price = price
+            }
+            else{
+                Snackbar.make(it,getString(R.string.set_age_limit), Snackbar.LENGTH_LONG).show()
             }
 
-            set.isPublic = binding.isPublicSwitch.isChecked
+            set.isPublic = isPublic
 
-            if (set.collectionName != binding.collectionSpinner.selectedItem.toString()){
-                val collection = controller.getCollectionFromName(binding.collectionSpinner.selectedItem.toString())
+            if (set.collectionName != collectionName){
+                val collection = controller.getCollectionFromName(collectionName)
                 controller.moveSet(set,collection,formerCollection)
             }
 

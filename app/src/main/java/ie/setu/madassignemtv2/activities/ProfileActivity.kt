@@ -105,6 +105,7 @@ class ProfileActivity: AppCompatActivity() {
             true
         }
 
+        binding.bottomNavigation.selectedItemId = R.id.nav_settings
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_Sets -> {
@@ -119,11 +120,6 @@ class ProfileActivity: AppCompatActivity() {
                 }
                 R.id.nav_collections -> {
                     val launcherIntent = Intent(this, CollectionsListActivity::class.java)
-                    startActivity(launcherIntent)
-                    true
-                }
-                R.id.nav_settings-> {
-                    val launcherIntent = Intent(this, ProfileActivity::class.java)
                     startActivity(launcherIntent)
                     true
                 }

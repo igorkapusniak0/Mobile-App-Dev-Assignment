@@ -71,11 +71,22 @@ class LoginActivity : AppCompatActivity(){
         }
 
         binding.loginButton.setOnClickListener {
-
+            var pass = true
             val username = binding.usernameField.text.toString()
             val password = binding.passwordField.text.toString()
 
-            if (username.isNotBlank() || password.isNotBlank()){
+            if (username.length > 20 || username.length < 2){
+                pass = false
+                binding.errorMessageTextView.text = getString(R.string.user_name_length)
+            }
+
+            if (password.length > 30 || password.length < 5){
+                pass = false
+                binding.errorMessageTextView.text = getString(R.string.user_password_length)
+            }
+
+
+            if (pass){
                 val loginResponse: Int = loginController.loginUser(username, password)
                 when (loginResponse) {
                     1 -> {
@@ -92,26 +103,29 @@ class LoginActivity : AppCompatActivity(){
                 Log.d("Username" ,username)
                 Log.d("Password" ,password)
             }
-            else{
-                binding.errorMessageTextView.text = getString(R.string.missing_login_info)
-            }
 
         }
 
         binding.registerButton.setOnClickListener {
             val username = binding.usernameField.text.toString()
             val password = binding.passwordField.text.toString()
-            val registerResponse: Boolean = loginController.registerUser(this, username, password)
-            if (registerResponse){
-                val intent = Intent(this@LoginActivity, CollectionsListActivity::class.java)
-                startActivity(intent)
+            if (username.length <= 20 || (password.length <= 30 && password.length >= 5)){
+                val registerResponse: Boolean = loginController.registerUser(this, username, password)
+                if (registerResponse){
+                    val intent = Intent(this@LoginActivity, CollectionsListActivity::class.java)
+                    startActivity(intent)
+                }
+                else{
+                    binding.errorMessageTextView.text = getString(R.string.user_exist)
+                }
+
+                Log.d("Username" ,username)
+                Log.d("Password" ,password)
             }
             else{
                 binding.errorMessageTextView.text = getString(R.string.user_exist)
             }
 
-            Log.d("Username" ,username)
-            Log.d("Password" ,password)
         }
 
     }

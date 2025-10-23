@@ -74,23 +74,50 @@ class SetsActivity: AppCompatActivity() {
         spinner.adapter = adapter
 
         binding.addSetButton.setOnClickListener {
-            set.name = binding.nameField.text.toString()
-            set.setNumber = binding.setNumberField.text.toString().toInt()
-            set.pieceCount = binding.pieceCountField.text.toString().toInt()
-            set.price = binding.priceField.text.toString().toFloat()
-            set.ageRange = binding.ageRangeField.text.toString().toInt()
-            set.isPublic = binding.isPublicSwitch.isChecked
-            set.collectionName = binding.collectionSpinner.selectedItem.toString()
-            val collection = controller.getCollectionFromName(binding.collectionSpinner.selectedItem.toString())
+            var pass = true
 
-            if (set.name.isNotEmpty() && set.setNumber != 0 && set.pieceCount != 0 && set.price != 0.0f && !controller.setNameExists(set.name) && !controller.setIDExists(set.setNumber)) {
+            val name = binding.nameField.text.toString()
+            val setNumber = binding.setNumberField.text.toString().toInt()
+            val pieceCount = binding.pieceCountField.text.toString().toInt()
+            val price = binding.priceField.text.toString().toFloat()
+            val age = binding.ageRangeField.text.toString().toInt()
+            val isPublic = binding.isPublicSwitch.isChecked
+
+            if (name.length > 20 || name.length < 5){
+                pass = false
+                Snackbar.make(it,getString(R.string.set_name_length), Snackbar.LENGTH_LONG).show()
+            }
+            if (setNumber < 1 || setNumber > 9999999 ){
+                pass = false
+                Snackbar.make(it,getString(R.string.set_number_limit), Snackbar.LENGTH_LONG).show()
+            }
+            if (pieceCount < 50 || pieceCount > 999999){
+                pass = false
+                Snackbar.make(it,getString(R.string.set_piece_count_limit), Snackbar.LENGTH_LONG).show()
+            }
+            if (price < 1.0f ||  price > 99999.0f){
+                pass = false
+                Snackbar.make(it,getString(R.string.set_price_limit), Snackbar.LENGTH_LONG).show()
+            }
+            if (age < 3 || age > 18 ){
+                pass = false
+                Snackbar.make(it,getString(R.string.set_age_limit), Snackbar.LENGTH_LONG).show()
+            }
+
+            if (pass) {
+                set.name = name
+                set.setNumber = setNumber
+                set.pieceCount = pieceCount
+                set.price = price
+                set.age = age
+                set.isPublic =  isPublic
+                set.collectionName = binding.collectionSpinner.selectedItem.toString()
+                val collection = controller.getCollectionFromName(binding.collectionSpinner.selectedItem.toString())
+
                 controller.addSet(set, collection)
                 Log.i("add Button Pressed", set.toString())
                 setResult(RESULT_OK)
                 finish()
-            }
-            else {
-                Snackbar.make(it,getString(R.string.missing_set_info), Snackbar.LENGTH_LONG).show()
             }
         }
     }

@@ -21,6 +21,11 @@ class Utils(private val context: Context) {
     private var globalData = GlobalData
 
     fun saveUsersToFile() {
+        val index = GlobalData.usersData.indexOfFirst { it.name == GlobalData.loggedUserData.name }
+        if (index != -1) {
+            GlobalData.usersData[index] = GlobalData.loggedUserData
+        }
+        Log.d("Global data ", GlobalData.usersData.toString())
         val jsonString = Json.encodeToString(GlobalData.usersData)
         val file = File(context.filesDir, saveFileName)
         file.writeText(jsonString)
@@ -81,9 +86,11 @@ class Utils(private val context: Context) {
 
     fun setDarkMode(){
         if (globalData.loggedUserData.darkMode){
+            Log.d("setting darkmode", globalData.loggedUserData.darkMode.toString())
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
         else{
+            Log.d("setting lightmode", globalData.loggedUserData.darkMode.toString())
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }

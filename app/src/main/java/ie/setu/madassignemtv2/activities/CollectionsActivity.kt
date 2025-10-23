@@ -57,19 +57,34 @@ class CollectionsActivity: AppCompatActivity() {
         Log.i("Placemark Activity started...","")
 
         binding.addCollectionButton.setOnClickListener {
-            collection.name = binding.nameField.text.toString()
-            collection.description = binding.descriptionField.text.toString()
-            collection.creationDate = utils.getDate()
-            collection.isPublic = binding.isPublicSwitch.isChecked
-            if (collection.name.isNotEmpty() && collection.description.isNotEmpty() && !controller.collectionNameExists(collection.name)) {
+            var pass = true
+            val name = binding.nameField.text.toString()
+            val description = binding.descriptionField.text.toString()
+            val creationDate = utils.getDate()
+            val isPublic = binding.isPublicSwitch.isChecked
+
+            if (name.length > 20 || name.length < 2){
+                pass = false
+                Snackbar.make(it,getString(R.string.collection_name_length), Snackbar.LENGTH_LONG).show()
+            }
+            if (description.length > 30 || description.length < 5){
+                pass = false
+                Snackbar.make(it,getString(R.string.collection_description_length), Snackbar.LENGTH_LONG).show()
+            }
+
+            Log.d("PASSING", pass.toString())
+
+            if (pass) {
+                collection.name = name
+                collection.description = description
+                collection.creationDate = creationDate
+                collection.isPublic = isPublic
                 controller.addCollection(collection)
                 Log.i("add Button Pressed", collection.toString())
                 setResult(RESULT_OK)
                 finish()
             }
-            else {
-                Snackbar.make(it,getString(R.string.missing_collection_info), Snackbar.LENGTH_LONG).show()
-            }
+
         }
     }
 }

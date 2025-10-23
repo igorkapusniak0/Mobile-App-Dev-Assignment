@@ -47,6 +47,7 @@ class SetsListActivity: AppCompatActivity() {
 
         app = application as MainApp
 
+        binding.bottomNavigation.selectedItemId = R.id.nav_Sets
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_collections -> {
@@ -136,11 +137,11 @@ class SetsListActivity: AppCompatActivity() {
                 binding.recyclerView.adapter?.notifyDataSetChanged()
             }
             R.id.set_sort_age_asc -> {
-                sets.sortBy { it.ageRange }
+                sets.sortBy { it.age }
                 binding.recyclerView.adapter?.notifyDataSetChanged()
             }
             R.id.set_sort_age_desc -> {
-                sets.sortByDescending { it.ageRange }
+                sets.sortByDescending { it.age }
                 binding.recyclerView.adapter?.notifyDataSetChanged()
             }
             R.id.set_sort_price_asc -> {

@@ -71,28 +71,36 @@ class EditUserActivity: AppCompatActivity() {
             Log.d("update user: ", newUserName)
             Log.d("update user:", loginController.userExists(newUserName).toString())
 
-            if (newUserName.isNotEmpty() && !usernameTaken) {
+            var pass = true
+
+            if (newUserName.length <= 20 && newUserName.length >= 2 && !usernameTaken) {
                 val index = globalData.usersData.indexOfFirst { it.name == globalData.loggedUserData.name }
                 if (index != -1) {
                     globalData.usersData[index].name = newUserName
                     globalData.loggedUserData.name = newUserName
                 }
             }
+            else {
+                pass = false
+                binding.missing.text = getString(R.string.user_name_length)
+            }
 
-            if (newPassword.isNotEmpty()) {
+            if (newPassword.length <= 30 && newPassword.length >= 5) {
                 val index = globalData.usersData.indexOfFirst { it.name == globalData.loggedUserData.name }
                 if (index != -1) {
                     globalData.usersData[index].password = newPassword
                     globalData.loggedUserData.password = newPassword
                 }
             }
+            else {
+                pass = false
+                binding.missing.text = getString(R.string.user_password_length)
+            }
 
-            if (!usernameTaken) {
+            if (!usernameTaken && pass) {
                 utils.saveUsersToFile()
                 setResult(RESULT_OK)
                 finish()
-            } else {
-                binding.missing.text = getString(R.string.user_exist)
             }
         }
     }

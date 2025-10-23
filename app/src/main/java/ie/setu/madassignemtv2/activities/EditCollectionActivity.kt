@@ -72,26 +72,32 @@ class EditCollectionActivity: AppCompatActivity() {
         binding.descriptionField.hint = collection.description
         binding.isPublicSwitch.isChecked = collection.isPublic
 
+        val name = binding.nameField.text.toString()
+        val description = binding.descriptionField.text.toString()
+        val isPublic = binding.isPublicSwitch.isChecked
+
         binding.addCollectionButton.setOnClickListener {
-            if (binding.nameField.text.toString().isNotEmpty() && !controller.collectionNameExists(binding.nameField.text.toString())) {
-                collection.name = binding.nameField.text.toString()
+            if ((name.length <= 20 && name.length >= 2) && !controller.collectionNameExists(binding.nameField.text.toString())) {
+                collection.name = name
             }
-            if (binding.descriptionField.text.toString().isNotEmpty()){
-                collection.description = binding.descriptionField.text.toString()
+            else{
+                Snackbar.make(it,getString(R.string.collection_name_length), Snackbar.LENGTH_LONG).show()
+
             }
-            collection.isPublic = binding.isPublicSwitch.isChecked
+            if (description.length <= 30 && description.length >= 5){
+                collection.description = description
+            }
+            else{
+                Snackbar.make(it,getString(R.string.collection_description_length), Snackbar.LENGTH_LONG).show()
+            }
+            collection.isPublic = isPublic
+
+            Log.i("Edit Button Pressed", collection.toString())
+            setResult(RESULT_OK)
+            finish()
 
 
 
-
-            if (collection.name.isNotEmpty() && collection.description.isNotEmpty()) {
-                Log.i("Edit Button Pressed", collection.toString())
-                setResult(RESULT_OK)
-                finish()
-            }
-            else {
-                Snackbar.make(it,getString(R.string.missing_collection_info), Snackbar.LENGTH_LONG).show()
-            }
         }
     }
 }

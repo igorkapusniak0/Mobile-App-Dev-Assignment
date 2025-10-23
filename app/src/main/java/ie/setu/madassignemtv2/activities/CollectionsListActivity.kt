@@ -44,6 +44,7 @@ class CollectionsListActivity: AppCompatActivity() {
 
         app = application as MainApp
 
+        binding.bottomNavigation.selectedItemId = R.id.nav_collections
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_Sets -> {

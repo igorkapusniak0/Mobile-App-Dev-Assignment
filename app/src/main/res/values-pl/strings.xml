@@ -68,6 +68,15 @@
     <string name="delete_account">Usuń onto</string>
     <string name="missing_login_info"> Imię lub Hasło brakuję</string>
     <string name="success">Sukces</string>
+    <string name="collection_name_length">Nazwa kolekcji musi mieć od 2 do 20 znaków</string>
+    <string name="collection_description_length">Opis kolekcji musi mieć od 5 do 30 znaków</string>
+    <string name="user_name_length">Nazwa użytkownika musi mieć od 2 do 20 znaków</string>
+    <string name="user_password_length">Hasło użytkownika musi mieć od 5 do 30 znaków</string>
+    <string name="set_name_length">Nazwa zestawu musi mieć od 5 do 20 znaków</string>
+    <string name="set_number_limit">Numer zestawu musi być między 1 a 9999999</string>
+    <string name="set_piece_count_limit">Liczba elementów w zestawie musi być między 50 a 999999</string>
+    <string name="set_age_limit">Wiek zestawu musi być między 3 a 18 lat</string>
+    <string name="set_price_limit">Cena zestawu musi być między 1 a 99999</string>
 
 
 </resources>
