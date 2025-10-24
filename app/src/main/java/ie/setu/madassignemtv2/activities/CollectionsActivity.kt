@@ -31,7 +31,6 @@ class CollectionsActivity: AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item_cancel -> {
-                Log.i("Cancel Button Pressed","")
                 setResult(RESULT_CANCELED)
                 finish()
                 return true
@@ -54,7 +53,6 @@ class CollectionsActivity: AppCompatActivity() {
         setSupportActionBar(binding.toolbarAdd)
 
         app = application as MainApp
-        Log.i("Placemark Activity started...","")
 
         binding.addCollectionButton.setOnClickListener {
             var pass = true
@@ -72,7 +70,10 @@ class CollectionsActivity: AppCompatActivity() {
                 Snackbar.make(it,getString(R.string.collection_description_length), Snackbar.LENGTH_LONG).show()
             }
 
-            Log.d("PASSING", pass.toString())
+//            if (intent.hasExtra("set_name")){
+//                get
+//            }
+
 
             if (pass) {
                 collection.name = name
@@ -80,7 +81,6 @@ class CollectionsActivity: AppCompatActivity() {
                 collection.creationDate = creationDate
                 collection.isPublic = isPublic
                 controller.addCollection(collection)
-                Log.i("add Button Pressed", collection.toString())
                 setResult(RESULT_OK)
                 finish()
             }

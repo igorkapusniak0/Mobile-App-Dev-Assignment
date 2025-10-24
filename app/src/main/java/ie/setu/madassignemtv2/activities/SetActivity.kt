@@ -36,7 +36,6 @@ class SetActivity: AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item_cancel -> {
-                Log.i("Cancel Button Pressed","")
                 setResult(RESULT_CANCELED)
                 finish()
                 return true
@@ -51,14 +50,11 @@ class SetActivity: AppCompatActivity() {
         val setName = intent.getStringExtra("set_name")
         val public = intent.getStringExtra("public")
         var set: LegoSet
-        Log.d("set name", setName.toString())
         if (public == "public"){
             set = controller.getPublicSetFromName(setName.toString())
-            Log.d("public set", set.toString())
         }
         else {
             set = controller.getSetFromName(setName.toString())
-            Log.d("private set", set.toString())
         }
 
         binding = ActivitySetBinding.inflate(layoutInflater)
@@ -69,10 +65,10 @@ class SetActivity: AppCompatActivity() {
         app = application as MainApp
 
         binding.nameText.text = set.name
-        binding.numberText.text = set.setNumber.toString()
-        binding.pieceCountText.text = set.pieceCount.toString()
-        binding.ageText.text = set.age.toString()
-        binding.priceText.text = set.price.toString()
+        binding.numberText.text = "ID: " + set.setNumber.toString()
+        binding.pieceCountText.text = "Number of Sets: " + set.pieceCount.toString()
+        binding.ageText.text = "Age: " + set.age.toString() + "+"
+        binding.priceText.text = "Price: €" + set.price.toString()
 
         }
 }

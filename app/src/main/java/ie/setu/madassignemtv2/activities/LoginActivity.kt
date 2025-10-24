@@ -100,8 +100,7 @@ class LoginActivity : AppCompatActivity(){
                         binding.errorMessageTextView.text = getString(R.string.incorrect_password)
                     }
                 }
-                Log.d("Username" ,username)
-                Log.d("Password" ,password)
+
             }
 
         }
@@ -119,8 +118,6 @@ class LoginActivity : AppCompatActivity(){
                     binding.errorMessageTextView.text = getString(R.string.user_exist)
                 }
 
-                Log.d("Username" ,username)
-                Log.d("Password" ,password)
             }
             else{
                 binding.errorMessageTextView.text = getString(R.string.user_exist)

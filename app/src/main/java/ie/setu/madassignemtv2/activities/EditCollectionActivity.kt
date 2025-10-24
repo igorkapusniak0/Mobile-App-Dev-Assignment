@@ -42,7 +42,6 @@ class EditCollectionActivity: AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item_cancel -> {
-                Log.i("Cancel Button Pressed","")
                 setResult(RESULT_CANCELED)
                 finish()
                 return true
@@ -59,10 +58,9 @@ class EditCollectionActivity: AppCompatActivity() {
         setSupportActionBar(binding.toolbarAdd)
 
         app = application as MainApp
-        Log.i("Placemark Activity started...","")
 
         val collectionName = intent.getStringExtra("collection_name")
-
+        binding.addCollectionButton.text = getString(R.string.update_collection)
         var collection = LegoCollection()
         if(collectionName != null){
             collection = controller.getCollectionFromName(collectionName)
@@ -72,27 +70,38 @@ class EditCollectionActivity: AppCompatActivity() {
         binding.descriptionField.hint = collection.description
         binding.isPublicSwitch.isChecked = collection.isPublic
 
-        val name = binding.nameField.text.toString()
-        val description = binding.descriptionField.text.toString()
-        val isPublic = binding.isPublicSwitch.isChecked
+
 
         binding.addCollectionButton.setOnClickListener {
-            if ((name.length <= 20 && name.length >= 2) && !controller.collectionNameExists(binding.nameField.text.toString())) {
-                collection.name = name
-            }
-            else{
-                Snackbar.make(it,getString(R.string.collection_name_length), Snackbar.LENGTH_LONG).show()
 
+            val name = binding.nameField.text.toString()
+            val description = binding.descriptionField.text.toString()
+            val isPublic = binding.isPublicSwitch.isChecked
+
+            if (name.isNotEmpty()){
+                if ((name.length <= 20 && name.length >= 2) && !controller.collectionNameExists(name)) {
+                    collection.name = name
+                }
+                else{
+                    Snackbar.make(it,getString(R.string.collection_name_length), Snackbar.LENGTH_LONG).show()
+                    return@setOnClickListener
+                }
             }
-            if (description.length <= 30 && description.length >= 5){
-                collection.description = description
+
+            if (description.isNotEmpty()){
+                if (description.length <= 30 && description.length >= 5){
+                    collection.description = description
+                }
+                else{
+                    Snackbar.make(it,getString(R.string.collection_description_length), Snackbar.LENGTH_LONG).show()
+                    return@setOnClickListener
+                }
             }
-            else{
-                Snackbar.make(it,getString(R.string.collection_description_length), Snackbar.LENGTH_LONG).show()
-            }
+
             collection.isPublic = isPublic
 
-            Log.i("Edit Button Pressed", collection.toString())
+            utils.saveUsersToFile()
+
             setResult(RESULT_OK)
             finish()
 

@@ -90,15 +90,12 @@ class SetsListActivity: AppCompatActivity() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 val input = query ?: ""
-                Log.d("SearchInput", "Submitted: $input")
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 val input = newText ?: ""
-                Log.d("SearchInput", "Changed: $input")
                 sets = controller.filterSets(input, getCollection())
-                Log.d("filter col", sets.toString())
                 (binding.recyclerView.adapter as? SetsAdapter)?.updateList(sets)
                 return true
             }
@@ -167,7 +164,6 @@ class SetsListActivity: AppCompatActivity() {
         val sets= mutableListOf<LegoSet>()
         val collectionName = intent.getStringExtra("collection_name")
         val public = intent.getStringExtra("public")
-        Log.d("Is Public", public.toString())
         if (collectionName == null){
             sets.addAll(globalData.loggedUserData.sets)
         }
@@ -189,7 +185,8 @@ class SetsListActivity: AppCompatActivity() {
 
     private val editResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == RESULT_OK) {
-            binding.recyclerView.adapter?.notifyDataSetChanged()
+            val updatedSets = getCollection()
+            (binding.recyclerView.adapter as? SetsAdapter)?.updateList(updatedSets)
         }
     }
 

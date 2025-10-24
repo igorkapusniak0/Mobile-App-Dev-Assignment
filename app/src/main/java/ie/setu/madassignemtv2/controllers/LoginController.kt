@@ -16,8 +16,7 @@ class LoginController(context: Context) {
         var loginSuccessful = 0
         for (user in globalData.usersData){
             if (userExists(username)){
-                if (password == user.password){
-                    Log.d("Login", "successful")
+                if (username == user.name && password == user.password){
                     loginSuccessful = 1
                     globalData.loggedUserData = user
                     break
@@ -49,7 +48,6 @@ class LoginController(context: Context) {
         if (!file.exists()) {
             file.createNewFile()
             file.writeText("")
-            Log.d("SaveFile", "File created at ${file.absolutePath}")
         }
 
         if (!userExists(username)){

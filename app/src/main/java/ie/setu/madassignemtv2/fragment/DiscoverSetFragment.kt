@@ -41,7 +41,6 @@ class SetsFragment : Fragment(R.layout.fragment_sets) {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         val sets = controller.getAllPublicSets()
-        Log.d("sts", sets.toString())
         setsAdapter = SetsAdapter(sets, binding.recyclerView,this::onCollectionSelected, this::onEditSetClicked)
         binding.recyclerView.adapter = setsAdapter
         setsAdapter.notifyDataSetChanged()

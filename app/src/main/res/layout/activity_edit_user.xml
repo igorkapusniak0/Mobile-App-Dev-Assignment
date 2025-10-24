@@ -85,8 +85,8 @@
 
     <TextView
         android:id="@+id/missing"
-        android:layout_width="214dp"
-        android:layout_height="48dp"
+        android:layout_width="307dp"
+        android:layout_height="57dp"
         android:gravity="center"
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"

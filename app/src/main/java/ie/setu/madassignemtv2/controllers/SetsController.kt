@@ -12,6 +12,7 @@ import ie.setu.madassignemtv2.R
 import ie.setu.madassignemtv2.activities.EditSetActivity
 import ie.setu.madassignemtv2.activities.SetActivity
 import ie.setu.madassignemtv2.activities.SetsListActivity
+import ie.setu.madassignemtv2.adapters.SetsAdapter
 import ie.setu.madassignemtv2.models.LegoCollection
 import ie.setu.madassignemtv2.models.LegoSet
 import ie.setu.madassignemtv2.utilities.GlobalData
@@ -35,19 +36,16 @@ class SetsController(context: Context) {
         collection.sets.add(set)
         globalData.loggedUserData.sets.add(set)
         utils.saveUsersToFile()
-        Log.d("user sets", collection.sets.toString())
 
     }
 
-    fun removeSet(set: LegoSet, collection: LegoCollection){
-        collection.sets.remove(set)
-        utils.saveUsersToFile()
-        Log.d("user sets", collection.sets.toString())
-    }
+    fun moveSet(set: LegoSet, newCollectionName: String, formerCollectionName: String) {
+        val newCollection = globalData.loggedUserData.collections.indexOfFirst { it.name == newCollectionName }
+        val formerCollection = globalData.loggedUserData.collections.indexOfFirst { it.name == formerCollectionName }
+        set.collectionName = newCollectionName
+        globalData.loggedUserData.collections[formerCollection].sets.remove(set)
+        globalData.loggedUserData.collections[newCollection].sets.add(set)
 
-    fun moveSet(set: LegoSet, newCollection: LegoCollection, formerCollection: LegoCollection){
-        newCollection.sets.add(set)
-        formerCollection.sets.remove(set)
         utils.saveUsersToFile()
     }
 
@@ -144,19 +142,20 @@ class SetsController(context: Context) {
 
         view.findViewById<TextView>(R.id.delete_option).setOnClickListener {
             removeSet(set)
-            recyclerView.adapter?.notifyDataSetChanged()
-            Toast.makeText(context, "Set Removed", Toast.LENGTH_SHORT).show()
+            val updatedSets = filterSets("", getUserSets())
+            (recyclerView.adapter as? SetsAdapter)?.updateList(updatedSets)
+            val text = context.getString(R.string.set_removed)
+
+            Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
             bottomSheetDialog.dismiss()
         }
 
         view.findViewById<TextView>(R.id.edit_option).setOnClickListener {
-            Toast.makeText(context, "Editing Collection", Toast.LENGTH_SHORT).show()
             onEditClicked(set)
             bottomSheetDialog.dismiss()
         }
 
         view.findViewById<TextView>(R.id.view_option).setOnClickListener {
-            Toast.makeText(context, "Viewing Collection", Toast.LENGTH_SHORT).show()
             val intent = Intent(context, SetActivity::class.java)
             intent.putExtra("set_name", set.name)
             context.startActivity(intent)
@@ -166,9 +165,7 @@ class SetsController(context: Context) {
     }
 
     fun filterSets(filter: String, sets: List<LegoSet>) : MutableList<LegoSet>{
-        Log.d("pre filter: ", sets.toString())
         val filteredSets = mutableListOf<LegoSet>()
-        Log.d("is Empty?: ", filter.isEmpty().toString())
         if (filter.isEmpty()){
             filteredSets.addAll(sets)
         }

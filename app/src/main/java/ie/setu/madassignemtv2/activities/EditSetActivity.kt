@@ -25,7 +25,7 @@ class EditSetActivity: AppCompatActivity() {
     lateinit var app: MainApp
     private var controller = SetsController(this)
     private lateinit var binding: ActivitySetsBinding
-
+    private var globalData= GlobalData
     private val utils = Utils(this)
 
 
@@ -42,7 +42,6 @@ class EditSetActivity: AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item_cancel -> {
-                Log.i("Cancel Button Pressed","")
                 setResult(RESULT_CANCELED)
                 finish()
                 return true
@@ -59,10 +58,9 @@ class EditSetActivity: AppCompatActivity() {
         setSupportActionBar(binding.toolbarAdd)
 
         app = application as MainApp
-        Log.i("Placemark Activity started...","")
 
         val dropdownItems = controller.listCollectionNames()
-        Log.d("dropdown items", dropdownItems.toString())
+        binding.addSetButton.text = getString(R.string.update_set)
 
         val spinner = binding.collectionSpinner
 
@@ -76,72 +74,99 @@ class EditSetActivity: AppCompatActivity() {
 
         spinner.adapter = adapter
 
+
+
         val setName = intent.getStringExtra("set_name")
+        Log.d("setname is intent", setName.toString())
 
         var set = LegoSet()
         if(setName != null){
             set = controller.getSetFromName(setName)
+            Log.d("currently set collection", set.collectionName)
         }
 
-        val formerCollection = controller.getCollectionFromName(set.collectionName)
-
+        binding.collectionSpinner.setSelection(collectionIndex(set.collectionName, dropdownItems))
         binding.nameField.hint = set.name
         binding.setNumberField.hint = set.setNumber.toString()
         binding.pieceCountField.hint = set.pieceCount.toString()
         binding.priceField.hint = set.price.toString()
         binding.isPublicSwitch.isChecked = set.isPublic
-        binding.collectionSpinner.setSelection(collectionIndex(set.collectionName,dropdownItems))
-        Log.d("index of spinner :", collectionIndex(set.collectionName,dropdownItems).toString())
-        Log.d("collection Name", set.collectionName)
-
-        val name = binding.nameField.text.toString()
-        val setNumber = binding.setNumberField.text.toString().toInt()
-        val pieceCount = binding.pieceCountField.text.toString().toInt()
-        val price = binding.priceField.text.toString().toFloat()
-        val age = binding.ageRangeField.text.toString().toInt()
-        val isPublic = binding.isPublicSwitch.isChecked
-        val collectionName = binding.collectionSpinner.selectedItem.toString()
 
         binding.addSetButton.setOnClickListener {
-            if((name.length <= 20 && name.length >= 5) && !controller.setNameExists(name)){
-                set.name = name
+            Log.d("pre set location", globalData.loggedUserData.toString())
+            val name = binding.nameField.text.toString()
+            val setNumberField = binding.setNumberField.text.toString()
+            val pieceCountField = binding.pieceCountField.text.toString()
+            val priceField = binding.priceField.text.toString()
+            val ageField = binding.ageRangeField.text.toString()
+            val isPublic = binding.isPublicSwitch.isChecked
+            val collectionName = binding.collectionSpinner.selectedItem.toString()
+
+            if (name.isNotEmpty()){
+                if((name.length <= 20 && name.length >= 5) && !controller.setNameExists(name)){
+                    set.name = name
+                }
+                else{
+                    Snackbar.make(it,getString(R.string.set_name_length), Snackbar.LENGTH_LONG).show()
+                    return@setOnClickListener
+                }
             }
-            else{
-                Snackbar.make(it,getString(R.string.set_name_length), Snackbar.LENGTH_LONG).show()
+
+            if (setNumberField.isNotEmpty()){
+                val setNumber = setNumberField.toInt()
+                if ((setNumber >= 1 && setNumber <= 9999999) && !controller.setIDExists(setNumber)){
+                    set.setNumber = setNumber
+                }
+                else{
+                    Snackbar.make(it,getString(R.string.set_number_limit), Snackbar.LENGTH_LONG).show()
+                    return@setOnClickListener
+                }
             }
-            if ((setNumber >= 1 && setNumber <= 9999999) && !controller.setIDExists(setNumber)){
-                set.setNumber = setNumber
+            if (pieceCountField.isNotEmpty()){
+                val pieceCount = pieceCountField.toInt()
+                if (pieceCount >= 50 && pieceCount <= 999999){
+                    set.pieceCount = pieceCount
+                }
+                else{
+                    Snackbar.make(it,getString(R.string.set_piece_count_limit), Snackbar.LENGTH_LONG).show()
+                    return@setOnClickListener
+                }
             }
-            else{
-                Snackbar.make(it,getString(R.string.set_number_limit), Snackbar.LENGTH_LONG).show()
+
+            if (priceField.isNotEmpty()){
+                val price = priceField.toFloat()
+                if (price >= 1 && price <= 99999){
+                    set.price = price
+                }
+                else{
+                    Snackbar.make(it,getString(R.string.set_price_limit), Snackbar.LENGTH_LONG).show()
+                    return@setOnClickListener
+                }
             }
-            if (pieceCount >= 50 && pieceCount <= 999999){
-                set.pieceCount = pieceCount
+            if (ageField.isNotEmpty()){
+                val age = ageField.toInt()
+                if (age >= 3 && age <= 18){
+                    set.age = age
+                }
+                else{
+                    Snackbar.make(it,getString(R.string.set_age_limit), Snackbar.LENGTH_LONG).show()
+                    return@setOnClickListener
+                }
             }
-            else{
-                Snackbar.make(it,getString(R.string.set_piece_count_limit), Snackbar.LENGTH_LONG).show()
-            }
-            if (price >= 1 && price <= 99999){
-                set.price = price
-            }
-            else{
-                Snackbar.make(it,getString(R.string.set_price_limit), Snackbar.LENGTH_LONG).show()
-            }
-            if (age >= 3 && age <= 18){
-                set.price = price
-            }
-            else{
-                Snackbar.make(it,getString(R.string.set_age_limit), Snackbar.LENGTH_LONG).show()
-            }
+
 
             set.isPublic = isPublic
+            Log.d("new", collectionName)
+            Log.d("old", set.collectionName)
 
             if (set.collectionName != collectionName){
-                val collection = controller.getCollectionFromName(collectionName)
-                controller.moveSet(set,collection,formerCollection)
+
+                controller.moveSet(set,collectionName,set.collectionName)
             }
 
-            Log.i("Edit Button Pressed", set.toString())
+            Log.d("post set location", globalData.loggedUserData.toString())
+            utils.saveUsersToFile()
+
             setResult(RESULT_OK)
             finish()
 

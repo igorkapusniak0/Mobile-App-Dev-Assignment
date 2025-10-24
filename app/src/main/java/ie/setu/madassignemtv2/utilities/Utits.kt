@@ -25,26 +25,19 @@ class Utils(private val context: Context) {
         if (index != -1) {
             GlobalData.usersData[index] = GlobalData.loggedUserData
         }
-        Log.d("Global data ", GlobalData.usersData.toString())
         val jsonString = Json.encodeToString(GlobalData.usersData)
         val file = File(context.filesDir, saveFileName)
         file.writeText(jsonString)
-        Log.d("Save Data",file.readText())
-        Log.d("SaveFile", "Saved JSON to ${file.absolutePath}")
     }
 
     fun loadSaveFileToList(){
         globalData.usersData.clear()
         val file = File(context.filesDir, saveFileName)
-        Log.d("file", "file")
         if (file.exists()){
-            Log.d("file", "file exists")
             val jsonString = file.readText()
             if (jsonString.isNotBlank()){
-                Log.d("file", "not blank")
                 val users = Json.decodeFromString<List<User>>(jsonString)
                 GlobalData.usersData.addAll(users)
-                Log.d("userdata Loaded", GlobalData.usersData.toString())
             }
         }
 
@@ -86,11 +79,9 @@ class Utils(private val context: Context) {
 
     fun setDarkMode(){
         if (globalData.loggedUserData.darkMode){
-            Log.d("setting darkmode", globalData.loggedUserData.darkMode.toString())
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
         else{
-            Log.d("setting lightmode", globalData.loggedUserData.darkMode.toString())
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }

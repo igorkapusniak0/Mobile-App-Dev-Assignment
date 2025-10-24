@@ -17,7 +17,7 @@
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="140dp"
+        android:layout_marginBottom="132dp"
         android:backgroundTint="@color/buttonColourLightMode"
         android:text="@string/login_button"
         android:textColor="@color/buttonTextColourLightMode"
@@ -33,13 +33,14 @@
         android:layout_height="52dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="76dp"
         android:backgroundTint="@color/buttonColourLightMode"
         android:text="@string/register_button"
         android:textColor="@color/buttonTextColourLightMode"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -103,14 +104,16 @@
 
     <TextView
         android:id="@+id/errorMessageTextView"
-        android:layout_width="271dp"
-        android:layout_height="24dp"
-        android:text=""
+        android:layout_width="358dp"
+        android:layout_height="50dp"
         android:gravity="center"
+        android:text=""
         app:layout_constraintBottom_toTopOf="@+id/loginButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.642"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordLayout"
+        app:layout_constraintVertical_bias="0.523" />
 
     <Spinner
         android:id="@+id/languageSpinner"
@@ -120,9 +123,8 @@
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
+        app:layout_constraintVertical_bias="0.94" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

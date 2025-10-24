@@ -76,6 +76,10 @@
     <string name="set_piece_count_limit">Set piece count needs to be between 50 and 999999</string>
     <string name="set_age_limit">Set age needs to be between 3 and 18</string>
     <string name="set_price_limit">Set price needs to be between 1 and 99999</string>
+    <string name="update_collection">Update Collection</string>
+    <string name="update_set">Update Set</string>
+    <string name="collection_removed">Collection Removed</string>
+    <string name="set_removed">Set Removed</string>
 </resources>
 
 

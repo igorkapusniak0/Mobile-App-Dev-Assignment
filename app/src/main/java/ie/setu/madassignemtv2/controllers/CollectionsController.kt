@@ -3,6 +3,7 @@ package ie.setu.madassignemtv2.controllers
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
+import android.provider.Settings.Global.getString
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.LinearLayout
@@ -17,6 +18,8 @@ import ie.setu.madassignemtv2.activities.DiscoverActivity
 import ie.setu.madassignemtv2.activities.EditCollectionActivity
 import ie.setu.madassignemtv2.activities.EditSetActivity
 import ie.setu.madassignemtv2.activities.SetsListActivity
+import ie.setu.madassignemtv2.adapters.CollectionsAdapter
+import ie.setu.madassignemtv2.adapters.SetsAdapter
 import ie.setu.madassignemtv2.models.LegoCollection
 import ie.setu.madassignemtv2.utilities.GlobalData
 import ie.setu.madassignemtv2.utilities.Utils
@@ -34,10 +37,6 @@ class CollectionsController(context: Context) {
         globalData.loggedUserData.collections.add(collection.copy())
         utils.saveUsersToFile()
 
-        for (i in globalData.loggedUserData.collections.indices) {
-            Log.i("Placemark[$i]", globalData.loggedUserData.collections[i].toString())
-
-        }
     }
 
     fun removeCollection(collection: LegoCollection){
@@ -72,19 +71,19 @@ class CollectionsController(context: Context) {
 
         view.findViewById<TextView>(R.id.delete_option).setOnClickListener {
             removeCollection(collection)
-            Toast.makeText(context, "Collection Removed", Toast.LENGTH_SHORT).show()
-            recyclerView.adapter?.notifyDataSetChanged()
+            val updatedCollections = filterCollection("", getUserCollections())
+            (recyclerView.adapter as? CollectionsAdapter)?.updateList(updatedCollections)
+            val text = context.getString(R.string.collection_removed)
+            Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
             bottomSheetDialog.dismiss()
         }
 
         view.findViewById<TextView>(R.id.edit_option).setOnClickListener {
-            Toast.makeText(context, "Editing Collection", Toast.LENGTH_SHORT).show()
             onEditClicked(collection)
             bottomSheetDialog.dismiss()
         }
 
         view.findViewById<TextView>(R.id.view_option).setOnClickListener {
-            Toast.makeText(context, "Viewing Collection", Toast.LENGTH_SHORT).show()
             val intent = Intent(context, SetsListActivity::class.java)
             intent.putExtra("collection_name", collection.name)
             context.startActivity(intent)
@@ -94,9 +93,7 @@ class CollectionsController(context: Context) {
     }
 
     fun filterCollection(filter: String, collections: List<LegoCollection>) : MutableList<LegoCollection>{
-        Log.d("pre filter: ", collections.toString())
         val filteredCollections = mutableListOf<LegoCollection>()
-        Log.d("is Empty?: ", filter.isEmpty().toString())
         if (filter.isEmpty()){
             filteredCollections.addAll(collections)
         }
@@ -108,7 +105,6 @@ class CollectionsController(context: Context) {
             }
         }
 
-        //Log.d("filter col", legoCollections.toString())
         return filteredCollections
     }
 

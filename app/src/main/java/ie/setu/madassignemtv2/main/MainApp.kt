@@ -8,6 +8,5 @@ class MainApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Log.i("App started", "True")
     }
 }

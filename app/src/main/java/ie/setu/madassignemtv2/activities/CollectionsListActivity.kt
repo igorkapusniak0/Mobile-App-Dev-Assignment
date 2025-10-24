@@ -90,16 +90,12 @@ class CollectionsListActivity: AppCompatActivity() {
         }
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                val input = query ?: ""
-                Log.d("SearchInput", "Submitted: $input")
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 val input = newText ?: ""
-                Log.d("SearchInput", "Changed: $input")
                 collections = controller.filterCollection(input, globalData.loggedUserData.collections)
-                Log.d("filter col", collections.toString())
                 (binding.recyclerView.adapter as? CollectionsAdapter)?.updateList(collections)
                 return true
             }

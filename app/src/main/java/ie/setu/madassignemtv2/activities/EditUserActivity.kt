@@ -39,7 +39,6 @@ class EditUserActivity: AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item_cancel -> {
-                Log.i("Cancel Button Pressed","")
                 setResult(RESULT_CANCELED)
                 finish()
                 return true
@@ -66,10 +65,6 @@ class EditUserActivity: AppCompatActivity() {
             val newUserName = binding.nameField.text.toString()
             val newPassword = binding.passwordField.text.toString()
             val usernameTaken = loginController.userExists(newUserName)
-
-            Log.d("update user:", newUserName.isNotEmpty().toString())
-            Log.d("update user: ", newUserName)
-            Log.d("update user:", loginController.userExists(newUserName).toString())
 
             var pass = true
 

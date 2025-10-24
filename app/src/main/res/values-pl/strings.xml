@@ -77,6 +77,9 @@
     <string name="set_piece_count_limit">Liczba elementów w zestawie musi być między 50 a 999999</string>
     <string name="set_age_limit">Wiek zestawu musi być między 3 a 18 lat</string>
     <string name="set_price_limit">Cena zestawu musi być między 1 a 99999</string>
-
+    <string name="update_collection">Edytuj kolekcję</string>
+    <string name="update_set">Edytuj zeztaw</string>
+    <string name="collection_removed">kolekcja usunięta</string>
+    <string name="set_removed">Zeztaw usunięta</string>
 
 </resources>

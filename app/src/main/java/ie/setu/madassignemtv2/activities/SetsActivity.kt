@@ -39,7 +39,6 @@ class SetsActivity: AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item_cancel -> {
-                Log.i("Cancel Button Pressed","")
                 setResult(RESULT_CANCELED)
                 finish()
                 return true
@@ -56,10 +55,8 @@ class SetsActivity: AppCompatActivity() {
         setSupportActionBar(binding.toolbarAdd)
 
         app = application as MainApp
-        Log.i("Placemark Activity started...","")
 
         val dropdownItems = controller.listCollectionNames()
-        Log.d("dropdown items", dropdownItems.toString())
 
         val spinner = binding.collectionSpinner
 
@@ -113,9 +110,8 @@ class SetsActivity: AppCompatActivity() {
                 set.isPublic =  isPublic
                 set.collectionName = binding.collectionSpinner.selectedItem.toString()
                 val collection = controller.getCollectionFromName(binding.collectionSpinner.selectedItem.toString())
-
+                
                 controller.addSet(set, collection)
-                Log.i("add Button Pressed", set.toString())
                 setResult(RESULT_OK)
                 finish()
             }
