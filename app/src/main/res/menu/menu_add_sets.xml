@@ -38,7 +38,7 @@
                 android:title="@string/num_of_pieces_low_high" />
             <item
                 android:id="@+id/set_sort_pieceCount_desc"
-                android:title="@string/num_of_sets_sort_high_low" />
+                android:title="@string/num_of_pieces_high_low" />
             <item
                 android:id="@+id/set_sort_age_asc"
                 android:title="@string/min_age_low_high" />
