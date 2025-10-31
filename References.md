@@ -24,4 +24,12 @@
 
 ## Lambdas:
   - https://kotlinlang.org/docs/lambdas.html#instantiating-a-function-type
+  - https://androidacademic.blogspot.com/2023/03/recyclerview-with-itemclicklistener-kotlin.html
+## Dropdown:
+  - https://stackoverflow.com/questions/13377361/how-to-create-a-drop-down-list
 
+## Issue with Recyclerview Not Updating:
+  - https://stackoverflow.com/questions/53005135/how-to-update-my-recyclerview-using-kotlin-android
+  - https://stackoverflow.com/questions/53919399/notifydatasetchanged-is-not-working-in-kotlin
+
+## 
